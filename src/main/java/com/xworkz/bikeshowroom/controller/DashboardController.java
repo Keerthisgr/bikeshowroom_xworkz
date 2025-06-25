@@ -90,6 +90,7 @@ public class DashboardController {
     }
     @RequestMapping("/addbikeandbranchtoshowroom")
     public String addBikeAndBranchToShowroom(@RequestParam String branchId, @RequestParam String bikeId, Model model) {
+        log.info("Assigned to showroom");
         int branchid = Integer.parseInt(branchId);
         int bikeid = Integer.parseInt(bikeId);
         Boolean result = dashBoardService.addBikeAndBranchToShowroom(branchid, bikeid);
