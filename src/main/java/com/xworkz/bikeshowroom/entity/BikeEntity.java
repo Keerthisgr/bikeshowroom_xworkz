@@ -15,6 +15,9 @@ import javax.persistence.*;
 @NamedQuery(name = "addshowroom",query = "UPDATE BikeEntity b SET b.branchEntity.id = :branchId WHERE b.id = :bikeId")
 @NamedQuery(name = "listofbikesnotselected",query = "select u from BikeEntity u where u.branchEntity.id IS NULL")
 @NamedQuery(name = "totalbikes",query = "SELECT COUNT(b.id) FROM BikeEntity b")
+@NamedQuery(name = "getAllBikes", query = "SELECT b FROM BikeEntity b")
+
+
 
 
 public class BikeEntity {

@@ -1,15 +1,22 @@
 package com.xworkz.bikeshowroom.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+
+
 @Entity
 @NamedQuery(name = "checkbranchexistance",query = "select e from BranchEntity e where e.branchName=:branchname")
 @NamedQuery(name = "branchwithlimitedbikeslist", query = "SELECT b FROM BranchEntity b WHERE ((SELECT COUNT(bk.id) FROM BikeEntity bk WHERE bk.branchEntity.id = b.id) < 5 )AND b.status = 'active'")
 @NamedQuery(name = "totalbranches",query = "SELECT COUNT(b.id) FROM BranchEntity b")
+@NamedQuery(name = "getAllBranches", query = "SELECT b FROM BranchEntity b")
+
 
 public class BranchEntity extends AbstractAuditEntity{
     @Id

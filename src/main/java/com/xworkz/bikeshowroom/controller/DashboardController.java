@@ -2,11 +2,14 @@ package com.xworkz.bikeshowroom.controller;
 
 import com.xworkz.bikeshowroom.dto.BikeDto;
 import com.xworkz.bikeshowroom.dto.BranchDto;
+import com.xworkz.bikeshowroom.entity.BikeEntity;
+import com.xworkz.bikeshowroom.entity.BranchEntity;
 import com.xworkz.bikeshowroom.service.DashBoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,9 +17,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Controller
 @Slf4j
+@RequestMapping("/")
 public class DashboardController {
 
     @Autowired
@@ -57,7 +62,7 @@ public class DashboardController {
             Files.write(path4, bytes4);
             model.addAttribute("bikeresult", "Bike added");
         } else {
-            model.addAttribute("bikeresult", "Bike not added sucessfully!!");
+            model.addAttribute("bikeresult", "Bike not added successfully!!");
         }
         return this.dashboard(model);
 
@@ -90,7 +95,6 @@ public class DashboardController {
     }
     @RequestMapping("/addbikeandbranchtoshowroom")
     public String addBikeAndBranchToShowroom(@RequestParam String branchId, @RequestParam String bikeId, Model model) {
-        log.info("Assigned to showroom");
         int branchid = Integer.parseInt(branchId);
         int bikeid = Integer.parseInt(bikeId);
         Boolean result = dashBoardService.addBikeAndBranchToShowroom(branchid, bikeid);
@@ -101,6 +105,22 @@ public class DashboardController {
         }
         return this.dashboard(model);
     }
+
+    @GetMapping("/view-bikes")
+    public String viewBikes(Model model) {
+        List<BikeEntity> bikes = dashBoardService.getAllBikes();
+        model.addAttribute("bikelist", bikes);
+        return "view-bikes";
+    }
+
+    @GetMapping("/view-branches")
+    public String viewBranches(Model model) {
+        List<BranchEntity> branches = dashBoardService.getAllBranches();
+        model.addAttribute("branchlist", branches);
+        return "view-branches";
+    }
+
+
 
 
 

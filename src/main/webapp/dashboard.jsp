@@ -311,7 +311,7 @@
                     <div class="dashboard-card">
                         <div class="card-icon"><i class="fas fa-motorcycle"></i></div>
                         <h3 class="card-title">${bike}</h3>
-                        <div class="card-title">Bikes</div><a href="bikes" class="card-title">View</a>
+                        <div class="card-title">Bikes</div><a href="view-bikes" class="card-title">View</a>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -319,7 +319,7 @@
                         <div class="card-icon"><i class="fas fa-map-marker-alt"></i></div>
                         <h3 class="card-title">${branch}</h3>
                         <div class="card-title">Branches</div>
-                         <a href="branches" class="card-title">View</a>
+                         <a href="view-branches" class="card-title">View</a>
                     </div>
                 </div>
                 <div class="col-md-3">

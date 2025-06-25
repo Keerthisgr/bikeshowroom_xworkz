@@ -63,5 +63,15 @@ public class DashBoardServiceImpl implements DashBoardService {
     public int totalBranches() {
         return dashBoardRepo.totalBranchCount();
     }
+
+    @Override
+    public List<BikeEntity> getAllBikes() {
+        return dashBoardRepo.getAllBikes();
+    }
+    @Override
+    public List<BranchEntity> getAllBranches() {
+        return dashBoardRepo.getAllBranches();
+    }
+
 }
 

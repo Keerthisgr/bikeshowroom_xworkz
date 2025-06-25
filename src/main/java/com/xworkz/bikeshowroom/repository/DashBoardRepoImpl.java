@@ -197,4 +197,45 @@ public class DashBoardRepoImpl implements DashBoardRepo{
             }
         }
     }
+
+    @Override
+    public List<BikeEntity> getAllBikes() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createNamedQuery("getAllBikes");
+            List<BikeEntity> list = query.getResultList();
+            entityManager.getTransaction().commit();
+            return list;
+        } catch (Exception e) {
+            log.error("Error fetching all bikes: {}", e.getMessage());
+            entityManager.getTransaction().rollback();
+            return null;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
+
+    }
+
+    @Override
+    public List<BranchEntity> getAllBranches() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createNamedQuery("getAllBranches");
+            List<BranchEntity> list = query.getResultList();
+            entityManager.getTransaction().commit();
+            return list;
+        } catch (Exception e) {
+            log.error("Error fetching all branches: {}", e.getMessage());
+            entityManager.getTransaction().rollback();
+            return null;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
+    }
 }

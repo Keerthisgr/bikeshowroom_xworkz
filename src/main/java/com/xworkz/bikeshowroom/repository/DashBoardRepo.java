@@ -2,7 +2,6 @@ package com.xworkz.bikeshowroom.repository;
 
 import com.xworkz.bikeshowroom.entity.BikeEntity;
 import com.xworkz.bikeshowroom.entity.BranchEntity;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -17,4 +16,6 @@ public interface DashBoardRepo {
     List<BikeEntity> notFullBranchList();
     int totalBikeCount();
     int totalBranchCount();
+    List<BikeEntity> getAllBikes();
+    List<BranchEntity> getAllBranches();
 }
