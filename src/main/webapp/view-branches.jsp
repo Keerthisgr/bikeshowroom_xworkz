@@ -363,7 +363,7 @@
 
                                 <!-- Actions -->
                                 <div class="d-flex justify-content-between mt-3">
-                                    <a href="editbranch.jsp?id=${branch.id}" class="btn btn-sm btn-primary">
+                                    <a href="editbranch?id=${branch.id}" class="btn btn-sm btn-primary">
                                         <i class="fas fa-edit me-1"></i> Edit
                                     </a>
                                     <button class="btn btn-sm btn-danger"

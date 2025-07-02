@@ -16,7 +16,8 @@ import java.util.List;
 @NamedQuery(name = "branchwithlimitedbikeslist", query = "SELECT b FROM BranchEntity b WHERE ((SELECT COUNT(bk.id) FROM BikeEntity bk WHERE bk.branchEntity.id = b.id) < 5 )AND b.status = 'active'")
 @NamedQuery(name = "totalbranches",query = "SELECT COUNT(b.id) FROM BranchEntity b")
 @NamedQuery(name = "getAllBranches", query = "SELECT b FROM BranchEntity b")
-
+@NamedQuery(name = "findById", query = "SELECT b FROM BranchEntity b WHERE b.id = :id")
+@NamedQuery(name = "updateBranchDetails", query = "UPDATE BranchEntity b SET b.branchName = :branchName, b.location = :location, b.number = :number, b.managerName = :managerName, b.email = :email, b.status = :status WHERE b.id = :id")
 
 public class BranchEntity extends AbstractAuditEntity{
     @Id

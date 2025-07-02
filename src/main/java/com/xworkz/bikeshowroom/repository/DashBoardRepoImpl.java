@@ -1,5 +1,6 @@
 package com.xworkz.bikeshowroom.repository;
 
+import com.xworkz.bikeshowroom.dto.BranchDto;
 import com.xworkz.bikeshowroom.entity.BikeEntity;
 import com.xworkz.bikeshowroom.entity.BranchEntity;
 import lombok.extern.slf4j.Slf4j;
@@ -236,6 +237,54 @@ public class DashBoardRepoImpl implements DashBoardRepo{
             if (entityManager != null) {
                 entityManager.close();
             }
+        }
+    }
+
+    @Override
+    public BranchEntity findById(int id) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query query = em.createNamedQuery("findById");
+            query.setParameter("id", id);
+            BranchEntity branch = (BranchEntity) query.getSingleResult();
+            em.getTransaction().commit();
+            return branch;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    @Override
+    public void updateBranchDetails(BranchDto dto) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        log.info("Updating branch with ID: " + dto.getId());
+
+        try {
+            em.getTransaction().begin();
+
+            Query query = em.createNamedQuery("updateBranchDetails");
+            query.setParameter("branchName", dto.getBranchName());
+            query.setParameter("location", dto.getLocation());
+            query.setParameter("number", dto.getNumber());
+            query.setParameter("managerName", dto.getManagerName());
+            query.setParameter("email", dto.getEmail());
+            query.setParameter("status", dto.getStatus());
+            query.setParameter("id", dto.getId());
+
+            query.executeUpdate();
+            log.info("Updating branch with ID: " + dto.getId());
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new RuntimeException("Error updating branch: " + e.getMessage());
+        } finally {
+            if (em != null) em.close();
         }
     }
 }

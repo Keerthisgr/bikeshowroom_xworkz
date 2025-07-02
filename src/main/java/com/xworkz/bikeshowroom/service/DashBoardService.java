@@ -18,4 +18,6 @@ public interface DashBoardService {
     int totalBranches();
     List<BikeEntity> getAllBikes();
     List<BranchEntity> getAllBranches();
+    BranchDto getBranchById(int id);
+    void updateBranch(BranchDto dto);
 }

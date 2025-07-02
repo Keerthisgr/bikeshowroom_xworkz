@@ -73,5 +73,21 @@ public class DashBoardServiceImpl implements DashBoardService {
         return dashBoardRepo.getAllBranches();
     }
 
+    @Override
+    public BranchDto getBranchById(int id) {
+        BranchEntity entity = dashBoardRepo.findById(id);
+        if (entity != null) {
+            BranchDto dto = new BranchDto();
+            BeanUtils.copyProperties(entity, dto);
+            return dto;
+        }
+        return null;
+    }
+
+    @Override
+    public void updateBranch(BranchDto dto) {
+        dashBoardRepo.updateBranchDetails(dto);
+    }
+
 }
 
