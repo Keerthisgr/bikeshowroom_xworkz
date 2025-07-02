@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -396,7 +395,36 @@
                                 ${bike.bikename} - ${bike.model}
                             </div>
                             <div class="bike-card-body">
-
+                                <!-- Image Slider -->
+                                <div class="image-slider" id="slider${loop.index}">
+                                <div class="bike-slider">
+                                    <div class="bike-slider-container" id="slider-${bike.id}">
+                                        <div class="bike-slide">
+                                            <img src="getfrontimage?image=${bike.frontimage}" alt="Front View">
+                                        </div>
+                                        <div class="bike-slide">
+                                            <img src="getbacksideimage?image=${bike.backimage}" alt="Back View">
+                                        </div>
+                                        <div class="bike-slide">
+                                            <img src="getrightsideimage?image=${bike.rightimage}" alt="Right View">
+                                        </div>
+                                        <div class="bike-slide">
+                                            <img src="getleftsideimage?image=${bike.leftimage}" alt="Left View">
+                                        </div>
+                                    </div>
+                                  <!--  <button class="slider-arrow left" onclick="moveSlide('slider-${bike.id}', -1)">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </button>
+                                    <button class="slider-arrow right" onclick="moveSlide('slider-${bike.id}', 1)">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>-->
+                                    <div class="slider-dots" id="dots-${bike.id}">
+                                        <span class="slider-dot active" onclick="goToSlide('slider-${bike.id}', 0)"></span>
+                                        <span class="slider-dot" onclick="goToSlide('slider-${bike.id}', 1)"></span>
+                                        <span class="slider-dot" onclick="goToSlide('slider-${bike.id}', 2)"></span>
+                                        <span class="slider-dot" onclick="goToSlide('slider-${bike.id}', 3)"></span>
+                                    </div>
+                                </div>
 
                                 <!-- Bike Details -->
                                 <div class="bike-details">
@@ -411,7 +439,6 @@
                                     <div class="bike-detail">
                                         <span class="bike-detail-label">Price:</span>
                                         <span>&#8377;${bike.price}</span>
-
                                     </div>
                                     <div class="bike-detail">
                                         <span class="bike-detail-label">Colors:</span>

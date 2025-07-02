@@ -331,7 +331,9 @@
                                 ${branch.branchName}
                             </div>
                             <div class="branch-card-body">
-
+                            <div class="branch-image-container">
+                                    <img src="getbranchimage?image=${branch.branchImage}" alt="Branch Image" class="branch-image">
+                                </div>
 
                                 <!-- Branch Details -->
                                 <div class="branch-details">
