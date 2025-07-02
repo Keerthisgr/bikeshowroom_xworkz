@@ -106,19 +106,7 @@ public class DashboardController {
         return this.dashboard(model);
     }
 
-    @GetMapping("/view-bikes")
-    public String viewBikes(Model model) {
-        List<BikeEntity> bikes = dashBoardService.getAllBikes();
-        model.addAttribute("bikelist", bikes);
-        return "view-bikes";
-    }
 
-    @GetMapping("/view-branches")
-    public String viewBranches(Model model) {
-        List<BranchEntity> branches = dashBoardService.getAllBranches();
-        model.addAttribute("branchlist", branches);
-        return "view-branches";
-    }
 
 
 
