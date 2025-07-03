@@ -2,8 +2,11 @@ package com.xworkz.bikeshowroom.service;
 
 import com.xworkz.bikeshowroom.dto.BikeDto;
 import com.xworkz.bikeshowroom.dto.BranchDto;
-import com.xworkz.bikeshowroom.entity.BikeEntity;
-import com.xworkz.bikeshowroom.entity.BranchEntity;
+import com.xworkz.bikeshowroom.dto.FollowUpDto;
+import com.xworkz.bikeshowroom.dto.UserRegistrationDto;
+import com.xworkz.bikeshowroom.entity.*;
+import com.xworkz.bikeshowroom.mailSender.EmailSender;
+import com.xworkz.bikeshowroom.otpGenerator.OtpGenerator;
 import com.xworkz.bikeshowroom.repository.DashBoardRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -114,6 +118,41 @@ public class DashBoardServiceImpl implements DashBoardService {
     @Override
     public boolean deleteBikeById(int id) {
         return dashBoardRepo.deleteBike(id);
+    }
+
+    @Override
+    public boolean register(UserRegistrationDto userRegistrationDto) {
+        UserRegistrationEntity userRegistrationEntity = new UserRegistrationEntity();
+        BeanUtils.copyProperties(userRegistrationDto,userRegistrationEntity);
+        UserLoginEntity userLoginEntity = new UserLoginEntity();
+        userLoginEntity.setEmail(userRegistrationDto.getEmail());
+        String password= OtpGenerator.generateOtp(8);
+        userLoginEntity.setPassword(password);
+        boolean result = EmailSender.sendEmail(userRegistrationDto.getEmail(), password);
+        userLoginEntity.setLoginCount(-1);
+
+        dashBoardRepo.saveLogin(userLoginEntity);
+        return dashBoardRepo.register(userRegistrationEntity);
+
+    }
+
+    @Override
+    public boolean followUp(FollowUpDto followUpDto) {
+        FollowUpEntity followUpEntity = new FollowUpEntity();
+        BeanUtils.copyProperties(followUpDto,followUpEntity);
+        return dashBoardRepo.followUp(followUpEntity);
+
+    }
+
+    @Override
+    public List<String> branchList() {
+        return dashBoardRepo.branchList();
+    }
+
+    @Override
+    public int totalUsers() {
+        return dashBoardRepo.totalUserCount();
+
     }
 
 }

@@ -7,11 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Honda Showroom - View Bikes</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Kanit:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -362,21 +359,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.jsp">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="aboutUs.jsp">About us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="userlogin.jsp">User login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="view-bikes.jsp">View Bikes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="adminLogin.jsp">Admin</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="aboutUs.jsp">About us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="userlogin.jsp">User login</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="view-bikes.jsp">View Bikes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="adminLogin.jsp">Admin</a></li>
                 </ul>
             </div>
         </div>
@@ -387,37 +374,19 @@
         <div class="container mt-4">
             <h2 class="page-title"><i class="fas fa-motorcycle me-2"></i>All Bikes</h2>
 
-            <div class="row">
-                <c:forEach items="${bikelist}" var="bike">
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="bike-card">
-                            <div class="bike-card-header">
-                                ${bike.bikename} - ${bike.model}
-                            </div>
-                            <div class="bike-card-body">
-                                <!-- Image Slider -->
-                                <div class="image-slider" id="slider${loop.index}">
-                                <div class="bike-slider">
+            <div class="row g-4">
+                <c:forEach items="${bikelist}" var="bike" varStatus="loop">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="bike-card h-100 d-flex flex-column">
+                            <div class="bike-card-header">${bike.bikename} - ${bike.model}</div>
+                            <div class="bike-card-body d-flex flex-column">
+                                <div class="bike-slider mb-3">
                                     <div class="bike-slider-container" id="slider-${bike.id}">
-                                        <div class="bike-slide">
-                                            <img src="getfrontimage?image=${bike.frontimage}" alt="Front View">
-                                        </div>
-                                        <div class="bike-slide">
-                                            <img src="getbacksideimage?image=${bike.backimage}" alt="Back View">
-                                        </div>
-                                        <div class="bike-slide">
-                                            <img src="getrightsideimage?image=${bike.rightimage}" alt="Right View">
-                                        </div>
-                                        <div class="bike-slide">
-                                            <img src="getleftsideimage?image=${bike.leftimage}" alt="Left View">
-                                        </div>
+                                        <div class="bike-slide"><img src="getfrontimage?image=${bike.frontimage}" alt="Front View"></div>
+                                        <div class="bike-slide"><img src="getbacksideimage?image=${bike.backimage}" alt="Back View"></div>
+                                        <div class="bike-slide"><img src="getrightsideimage?image=${bike.rightimage}" alt="Right View"></div>
+                                        <div class="bike-slide"><img src="getleftsideimage?image=${bike.leftimage}" alt="Left View"></div>
                                     </div>
-                                  <!--  <button class="slider-arrow left" onclick="moveSlide('slider-${bike.id}', -1)">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </button>
-                                    <button class="slider-arrow right" onclick="moveSlide('slider-${bike.id}', 1)">
-                                        <i class="fas fa-chevron-right"></i>
-                                    </button>-->
                                     <div class="slider-dots" id="dots-${bike.id}">
                                         <span class="slider-dot active" onclick="goToSlide('slider-${bike.id}', 0)"></span>
                                         <span class="slider-dot" onclick="goToSlide('slider-${bike.id}', 1)"></span>
@@ -426,34 +395,16 @@
                                     </div>
                                 </div>
 
-                                <!-- Bike Details -->
                                 <div class="bike-details">
-                                    <div class="bike-detail">
-                                        <span class="bike-detail-label">Engine:</span>
-                                        <span>${bike.engine}cc</span>
-                                    </div>
-                                    <div class="bike-detail">
-                                        <span class="bike-detail-label">Mileage:</span>
-                                        <span>${bike.milage} kmpl</span>
-                                    </div>
-                                    <div class="bike-detail">
-                                        <span class="bike-detail-label">Price:</span>
-                                        <span>&#8377;${bike.price}</span>
-                                    </div>
-                                    <div class="bike-detail">
-                                        <span class="bike-detail-label">Colors:</span>
-                                        <span>${bike.color}</span>
-                                    </div>
+                                    <div class="bike-detail"><span class="bike-detail-label">Engine:</span> <span>${bike.engine}cc</span></div>
+                                    <div class="bike-detail"><span class="bike-detail-label">Mileage:</span> <span>${bike.milage} kmpl</span></div>
+                                    <div class="bike-detail"><span class="bike-detail-label">Price:</span> <span>&#8377;${bike.price}</span></div>
+                                    <div class="bike-detail"><span class="bike-detail-label">Colors:</span> <span>${bike.color}</span></div>
                                 </div>
 
-                                <!-- Actions -->
-                                <div class="d-flex justify-content-between mt-3">
-                                    <a href="editbikes?id=${bike.id}" class="btn btn-sm btn-primary">
-                                        <i class="fas fa-edit me-1"></i> Edit
-                                    </a>
-                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" data-bike-id="${bike.id}">
-                                        <i class="fas fa-trash me-1"></i> Delete
-                                    </button>
+                                <div class="mt-auto pt-3 d-flex justify-content-between">
+                                    <a href="editbikes?id=${bike.id}" class="btn btn-sm btn-primary"><i class="fas fa-edit me-1"></i> Edit</a>
+                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" data-bike-id="${bike.id}"><i class="fas fa-trash me-1"></i> Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -482,58 +433,22 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container text-center footer-content">
-            <img src="https://s3-ap-southeast-1.amazonaws.com/assetsin.izmocars.com/userfiles/102585/03-08-2021/Honda%20logo.png" alt="Honda Logo" class="footer-logo">
-            <div class="footer-links">
-                <a href="#">About Honda</a>
-                <a href="#">Technology</a>
-                <a href="#">Racing</a>
-                <a href="#">Sustainability</a>
-                <a href="#">Careers</a>
-                <a href="#">Contact Us</a>
-            </div>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-            <p class="copyright">© 2025 Honda Motor Co., Ltd. All Rights Reserved. | <i class="fas fa-bolt" style="color: var(--honda-red);"></i> Powered by Dreams</p>
-        </div>
-    </footer>
+    <!-- Footer (keep your original one here) -->
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Initialize sliders for each bike
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set up each bike's slider
+        document.addEventListener('DOMContentLoaded', function () {
             <c:forEach items="${bikelist}" var="bike">
                 setupSlider('slider-${bike.id}', 'dots-${bike.id}');
             </c:forEach>
 
-            // Set up delete confirmation modal
             const deleteModal = document.getElementById('deleteConfirmationModal');
             if (deleteModal) {
-                deleteModal.addEventListener('show.bs.modal', function(event) {
+                deleteModal.addEventListener('show.bs.modal', function (event) {
                     const button = event.relatedTarget;
                     const bikeId = button.getAttribute('data-bike-id');
-                    const confirmBtn = document.getElementById('confirmDeleteBtn');
-                    confirmBtn.href = 'deletebike?id=' + bikeId;
+                    document.getElementById('confirmDeleteBtn').href = 'deletebike?id=' + bikeId;
                 });
             }
         });
@@ -543,51 +458,21 @@
             const dots = document.getElementById(dotsId).children;
             let currentSlide = 0;
 
-            // Update slider position and dots
             function updateSlider() {
                 slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-
-                // Update dots
                 for (let i = 0; i < dots.length; i++) {
                     dots[i].classList.toggle('active', i === currentSlide);
                 }
             }
 
-            // Initial setup
             updateSlider();
-        }
-
-        function moveSlide(sliderId, direction) {
-            const slider = document.getElementById(sliderId);
-            const dots = document.getElementById(sliderId.replace('slider-', 'dots-')).children;
-            const totalSlides = slider.children.length;
-            let currentSlide = parseInt(slider.dataset.currentSlide || 0);
-
-            currentSlide += direction;
-
-            // Handle wrap-around
-            if (currentSlide >= totalSlides) currentSlide = 0;
-            if (currentSlide < 0) currentSlide = totalSlides - 1;
-
-            // Update slider
-            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-            slider.dataset.currentSlide = currentSlide;
-
-            // Update dots
-            for (let i = 0; i < dots.length; i++) {
-                dots[i].classList.toggle('active', i === currentSlide);
-            }
         }
 
         function goToSlide(sliderId, slideIndex) {
             const slider = document.getElementById(sliderId);
             const dots = document.getElementById(sliderId.replace('slider-', 'dots-')).children;
-
-            // Update slider
             slider.style.transform = `translateX(-${slideIndex * 100}%)`;
             slider.dataset.currentSlide = slideIndex;
-
-            // Update dots
             for (let i = 0; i < dots.length; i++) {
                 dots[i].classList.toggle('active', i === slideIndex);
             }

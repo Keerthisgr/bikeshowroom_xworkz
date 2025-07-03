@@ -278,7 +278,7 @@
                         <a class="nav-link" href="index.jsp">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="register.jsp">Register</a>
+                        <a class="nav-link active" href="startRegister">Register</a>
                     </li>
                 </ul>
             </div>
@@ -295,7 +295,7 @@
             <a href="#add-bike" id="bike-link"><i class="fas fa-plus-circle"></i> Add Bike</a>
             <a href="#add-branch" id="branch-link"><i class="fas fa-map-marker-alt"></i> Add Branch</a>
             <a href="#add-showroom" id="showroom-link"><i class="fas fa-store"></i> Add Showroom</a>
-            <a href="#customers" id="customers-link"><i class="fas fa-users"></i> Customers</a>
+            <a href="follow-up.jsp" id="customers-link"><i class="fas fa-users"></i>Follow up</a>
             <a href="#settings" id="settings-link"><i class="fas fa-cog"></i> Settings</a>
             <a href="#logout" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
@@ -310,14 +310,14 @@
                 <div class="col-md-3">
                     <div class="dashboard-card">
                         <div class="card-icon"><i class="fas fa-motorcycle"></i></div>
-                        <h3 class="card-title">${bike}</h3>
+                        <h3 class="card-title">${totalbikes}</h3>
                         <div class="card-title">Bikes</div><a href="view-bikes" class="card-title">View</a>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="dashboard-card">
                         <div class="card-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <h3 class="card-title">${branch}</h3>
+                        <h3 class="card-title">${totalbranches}</h3>
                         <div class="card-title">Branches</div>
                          <a href="view-branches" class="card-title">View</a>
                     </div>
@@ -340,7 +340,7 @@
                     <div class="dashboard-card">
                         <div class="card-icon"><i class="fas fa-users"></i></div>
                     </br>
-                        <h3 class="card-title">21</h3>
+                        <h3 class="card-title">${totalusers}</h3>
                         <div class="card-title">Today's Visitors</div>
                         <a href="branches" class="card-title"></a>
                     </div>
@@ -520,7 +520,7 @@
 
                                                    <div class="mb-3">
                                                        <label for="showroomBranch" class="form-label">Select Branch</label>
-                                                       <select class="form-select" id="showroomBranch" name="branchName" required>
+                                                       <select class="form-select" id="showroomBranch" name="branchId" required>
                                                            <option value="">-- Select Branch --</option>
                                                            <c:forEach items="${notfullbranchlist}" var="totalbranches">
                                                                <option value="${totalbranches.id}">${totalbranches.branchName}</option>
@@ -529,7 +529,7 @@
                                                    </div>
                                                    <div class="mb-3">
                                                            <label for="showroomBike" class="form-label">Select Bike</label>
-                                                           <select class="form-select" id="showroomBike" name="model" required>
+                                                           <select class="form-select" id="showroomBike" name="bikeId" required>
                                                                   <option value="">-- Select Bike --</option>
                                                                   <c:forEach items="${unsoldbikelist}" var="totalbikes">
                                                                   <option value="${totalbikes.id}">${totalbikes.model}</option>

@@ -2,6 +2,8 @@ package com.xworkz.bikeshowroom.controller;
 
 import com.xworkz.bikeshowroom.dto.BikeDto;
 import com.xworkz.bikeshowroom.dto.BranchDto;
+import com.xworkz.bikeshowroom.dto.FollowUpDto;
+import com.xworkz.bikeshowroom.dto.UserRegistrationDto;
 import com.xworkz.bikeshowroom.entity.BikeEntity;
 import com.xworkz.bikeshowroom.entity.BranchEntity;
 import com.xworkz.bikeshowroom.service.DashBoardService;
@@ -9,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,7 +19,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 
 @Controller
 @Slf4j
@@ -91,8 +97,11 @@ public class DashboardController {
         model.addAttribute("notfullbranchlist", dashBoardService.notFullBranchList());
         model.addAttribute("totalbikes", dashBoardService.totalBikes());
         model.addAttribute("totalbranches", dashBoardService.totalBranches());
+        model.addAttribute("totaluser", dashBoardService.totalUsers());
+
         return "dashboard";
     }
+
     @RequestMapping("/addbikeandbranchtoshowroom")
     public String addBikeAndBranchToShowroom(@RequestParam String branchId, @RequestParam String bikeId, Model model) {
         int branchid = Integer.parseInt(branchId);
@@ -105,12 +114,37 @@ public class DashboardController {
         }
         return this.dashboard(model);
     }
+    @RequestMapping("/userregistration")
+    public String userRegistration(Model model, UserRegistrationDto userRegistrationDto, FollowUpDto followUpDto) throws IOException {
+        userRegistrationDto.setStatus("Active");
+        String profile = "C:\\modules\\profile\\dummy.png";
+        byte[] bytes = Files.readAllBytes(Paths.get(profile));
+
+        Path path = Paths.get("C:\\modules\\profile\\" + userRegistrationDto.getFullName() + System.currentTimeMillis());
+        Files.write(path, bytes);
 
 
+        String file = path.getFileName().toString();
+        userRegistrationDto.setProfilePicture(file);
 
 
+        boolean result = dashBoardService.register(userRegistrationDto);
+        followUpDto.setDate(Date.valueOf(LocalDate.now()));
+        followUpDto.setTime(Time.valueOf(LocalTime.now()));
+        followUpDto.setMessage("registered");
+        followUpDto.setStatus(userRegistrationDto.getTestRideOption());
+        dashBoardService.followUp(followUpDto);
+        if (result) {
+            model.addAttribute("result", "Registration done successfully!!");
 
-
-
-
+        } else {
+            model.addAttribute("result", "Registration failed");
+        }
+        return this.dashboard(model);
+    }
+    @RequestMapping("/startRegister")
+    public String startRegister(Model model) {
+        model.addAttribute("branchdata", dashBoardService.branchList());
+        return "user-registration";
+    }
 }

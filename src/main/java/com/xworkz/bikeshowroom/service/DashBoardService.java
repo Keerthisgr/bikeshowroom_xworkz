@@ -2,6 +2,8 @@ package com.xworkz.bikeshowroom.service;
 
 import com.xworkz.bikeshowroom.dto.BikeDto;
 import com.xworkz.bikeshowroom.dto.BranchDto;
+import com.xworkz.bikeshowroom.dto.FollowUpDto;
+import com.xworkz.bikeshowroom.dto.UserRegistrationDto;
 import com.xworkz.bikeshowroom.entity.BikeEntity;
 import com.xworkz.bikeshowroom.entity.BranchEntity;
 import org.springframework.ui.Model;
@@ -24,4 +26,8 @@ public interface DashBoardService {
     void updateBike(BikeDto dto);
     boolean deleteBranchById(int id);
     boolean deleteBikeById(int id);
+    boolean register(UserRegistrationDto userRegistrationDto);
+    boolean followUp(FollowUpDto followUpDto);
+    List<String> branchList();
+    int totalUsers();
 }

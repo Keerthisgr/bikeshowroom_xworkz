@@ -2,8 +2,7 @@ package com.xworkz.bikeshowroom.repository;
 
 import com.xworkz.bikeshowroom.dto.BikeDto;
 import com.xworkz.bikeshowroom.dto.BranchDto;
-import com.xworkz.bikeshowroom.entity.BikeEntity;
-import com.xworkz.bikeshowroom.entity.BranchEntity;
+import com.xworkz.bikeshowroom.entity.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -379,6 +378,103 @@ public class DashBoardRepoImpl implements DashBoardRepo{
         } finally {
             if (em != null) {
                 em.close();
+            }
+        }
+    }
+
+    @Override
+    public boolean saveLogin(UserLoginEntity userLoginEntity) {
+        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(userLoginEntity);
+            entityManager.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            log.error(e.getMessage());
+            entityManager.getTransaction().rollback();
+            return false;
+        }finally {
+            if (entityManager!=null){
+                entityManager.close();
+            }
+        }
+    }
+
+    @Override
+    public boolean register(UserRegistrationEntity userRegistrationEntity) {
+        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        try {
+            userRegistrationEntity.setCreatedBy(userRegistrationEntity.getFullName());
+            userRegistrationEntity.setCreatedTime(LocalDateTime.now());
+            entityManager.getTransaction().begin();
+            entityManager.persist(userRegistrationEntity);
+            entityManager.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            log.error(e.getMessage());
+            entityManager.getTransaction().rollback();
+            return false;
+        }finally {
+            if (entityManager!=null){
+                entityManager.close();
+            }
+        }
+    }
+
+    @Override
+    public boolean followUp(FollowUpEntity followUpEntity) {
+        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(followUpEntity);
+            entityManager.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            log.error(e.getMessage());
+            entityManager.getTransaction().rollback();
+            return false;
+        }finally {
+            if (entityManager!=null){
+                entityManager.close();
+            }
+        }
+    }
+
+    @Override
+    public List<String> branchList() {
+        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            Query query=entityManager.createNamedQuery("branchName");
+            List<String> list = query.getResultList();
+            return list;
+        }catch (Exception e){
+            log.error(e.getMessage());
+            entityManager.getTransaction().rollback();
+            return null;
+        }finally {
+            if (entityManager!=null){
+                entityManager.close();
+            }
+        }
+    }
+
+    @Override
+    public int totalUserCount() {
+        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            Query query=entityManager.createNamedQuery("totalusers");
+            Long count= (Long) query.getSingleResult();
+            return Math.toIntExact(count);
+        }catch (Exception e){
+            log.error(e.getMessage());
+            entityManager.getTransaction().rollback();
+            return -1;
+        }finally {
+            if (entityManager!=null){
+                entityManager.close();
             }
         }
     }
