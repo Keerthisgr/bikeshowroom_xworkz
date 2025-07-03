@@ -1,5 +1,6 @@
 package com.xworkz.bikeshowroom.repository;
 
+import com.xworkz.bikeshowroom.dto.BikeDto;
 import com.xworkz.bikeshowroom.dto.BranchDto;
 import com.xworkz.bikeshowroom.entity.BikeEntity;
 import com.xworkz.bikeshowroom.entity.BranchEntity;
@@ -278,11 +279,55 @@ public class DashBoardRepoImpl implements DashBoardRepo{
             query.setParameter("id", dto.getId());
 
             query.executeUpdate();
-            log.info("Updating branch with ID: " + dto.getId());
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
             throw new RuntimeException("Error updating branch: " + e.getMessage());
+        } finally {
+            if (em != null) em.close();
+        }
+    }
+
+    @Override
+    public BikeEntity findBikeById(int id) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query query = em.createNamedQuery("findBikeById");
+            query.setParameter("id", id);
+            BikeEntity bike = (BikeEntity) query.getSingleResult();
+            em.getTransaction().commit();
+            return bike;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    @Override
+    public void updateBikeDetails(BikeDto dto) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            Query query = em.createNamedQuery("updateBikeDetails");
+            query.setParameter("model", dto.getModel());
+            query.setParameter("bikename", dto.getBikename());
+            query.setParameter("engine", dto.getEngine());
+            query.setParameter("milage", dto.getMilage());
+            query.setParameter("price", dto.getPrice());
+            query.setParameter("color", dto.getColor());
+            query.setParameter("id", dto.getId());
+
+            query.executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new RuntimeException("Error updating bike: " + e.getMessage());
         } finally {
             if (em != null) em.close();
         }

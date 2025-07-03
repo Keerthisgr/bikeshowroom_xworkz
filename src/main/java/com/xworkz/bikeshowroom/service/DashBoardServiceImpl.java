@@ -89,5 +89,21 @@ public class DashBoardServiceImpl implements DashBoardService {
         dashBoardRepo.updateBranchDetails(dto);
     }
 
+    @Override
+    public BikeDto getBikeById(int id) {
+        BikeEntity entity = dashBoardRepo.findBikeById(id);
+        if (entity != null) {
+            BikeDto dto = new BikeDto();
+            BeanUtils.copyProperties(entity, dto);
+            return dto;
+        }
+        return null;
+    }
+
+    @Override
+    public void updateBike(BikeDto dto) {
+        dashBoardRepo.updateBikeDetails(dto);
+    }
+
 }
 

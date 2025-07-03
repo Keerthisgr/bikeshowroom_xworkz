@@ -448,7 +448,7 @@
 
                                 <!-- Actions -->
                                 <div class="d-flex justify-content-between mt-3">
-                                    <a href="editbikes.jsp?id=${bike.id}" class="btn btn-sm btn-primary">
+                                    <a href="editbikes?id=${bike.id}" class="btn btn-sm btn-primary">
                                         <i class="fas fa-edit me-1"></i> Edit
                                     </a>
                                     <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" data-bike-id="${bike.id}">

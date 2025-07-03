@@ -1,5 +1,6 @@
 package com.xworkz.bikeshowroom.repository;
 
+import com.xworkz.bikeshowroom.dto.BikeDto;
 import com.xworkz.bikeshowroom.dto.BranchDto;
 import com.xworkz.bikeshowroom.entity.BikeEntity;
 import com.xworkz.bikeshowroom.entity.BranchEntity;
@@ -21,4 +22,6 @@ public interface DashBoardRepo {
     List<BranchEntity> getAllBranches();
     BranchEntity findById(int id);
     void updateBranchDetails(BranchDto dto);
+    BikeEntity findBikeById(int id);
+    void updateBikeDetails(BikeDto dto);
 }

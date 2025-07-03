@@ -1,5 +1,6 @@
 package com.xworkz.bikeshowroom.controller;
 
+import com.xworkz.bikeshowroom.dto.BikeDto;
 import com.xworkz.bikeshowroom.dto.BranchDto;
 import com.xworkz.bikeshowroom.entity.BranchEntity;
 import com.xworkz.bikeshowroom.service.DashBoardService;
@@ -34,5 +35,24 @@ public class EditAndUpdateController {
             e.printStackTrace();
         }
         return "redirect:/view-branches";
+    }
+
+    @GetMapping("/editbikes")
+    public String editBike(@RequestParam("id") int id, Model model) {
+        BikeDto entity = dashBoardService.getBikeById(id);
+        model.addAttribute("bike", entity);
+        return "editbikes";
+    }
+
+    @PostMapping("/updatebike")
+    public String updateBike(@ModelAttribute BikeDto dto, RedirectAttributes redirectAttributes) {
+        try {
+            dashBoardService.updateBike(dto);
+            redirectAttributes.addFlashAttribute("success", "Bike updated successfully!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/view-bikes";
     }
 }
