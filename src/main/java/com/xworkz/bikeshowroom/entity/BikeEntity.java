@@ -18,6 +18,7 @@ import javax.persistence.*;
 @NamedQuery(name = "getAllBikes", query = "SELECT b FROM BikeEntity b")
 @NamedQuery(name = "findBikeById", query = "SELECT b FROM BikeEntity b WHERE b.id = :id")
 @NamedQuery(name = "updateBikeDetails", query = "UPDATE BikeEntity b SET b.model = :model, b.bikename = :bikename, b.engine = :engine, b.milage = :milage, b.price = :price, b.color = :color WHERE b.id = :id")
+@NamedQuery(name = "deleteBikeById", query = "DELETE FROM BikeEntity b WHERE b.id = :id")
 
 
 

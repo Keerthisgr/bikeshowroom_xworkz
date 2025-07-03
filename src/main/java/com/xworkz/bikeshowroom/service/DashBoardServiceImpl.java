@@ -105,5 +105,16 @@ public class DashBoardServiceImpl implements DashBoardService {
         dashBoardRepo.updateBikeDetails(dto);
     }
 
+    @Override
+    public boolean deleteBranchById(int id) {
+        return dashBoardRepo.deleteBranch(id);
+
+    }
+
+    @Override
+    public boolean deleteBikeById(int id) {
+        return dashBoardRepo.deleteBike(id);
+    }
+
 }
 

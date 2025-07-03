@@ -332,4 +332,54 @@ public class DashBoardRepoImpl implements DashBoardRepo{
             if (em != null) em.close();
         }
     }
+
+    @Override
+    public boolean deleteBranch(int id) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            Query query = em.createNamedQuery("deleteBranchById");
+            query.setParameter("id", id);
+
+            int deleted = query.executeUpdate();
+            em.getTransaction().commit();
+            return deleted > 0;
+
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    @Override
+    public boolean deleteBike(int id) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            Query query = em.createNamedQuery("deleteBikeById");
+            query.setParameter("id", id);
+
+            int deleted = query.executeUpdate();
+            em.getTransaction().commit();
+            return deleted > 0;
+
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
 }

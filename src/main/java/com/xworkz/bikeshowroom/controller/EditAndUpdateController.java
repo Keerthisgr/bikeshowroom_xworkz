@@ -55,4 +55,25 @@ public class EditAndUpdateController {
         }
         return "redirect:/view-bikes";
     }
+    @GetMapping("/deletebranch")
+    public String deleteBranch(@RequestParam int id, Model model) {
+        boolean deleted = dashBoardService.deleteBranchById(id);
+        if (deleted) {
+            model.addAttribute("msg", "Branch deleted successfully");
+        } else {
+            model.addAttribute("error", "Branch not found or could not be deleted");
+        }
+        return "redirect:/view-branches";
+    }
+
+    @GetMapping("/deletebike")
+    public String deleteBike(@RequestParam int id, Model model) {
+        boolean deleted = dashBoardService.deleteBikeById(id);
+        if (deleted) {
+            model.addAttribute("msg", "Bike deleted successfully");
+        } else {
+            model.addAttribute("error", "Bike not found or could not be deleted");
+        }
+        return "redirect:/view-bikes";
+    }
 }

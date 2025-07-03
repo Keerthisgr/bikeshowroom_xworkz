@@ -24,4 +24,6 @@ public interface DashBoardRepo {
     void updateBranchDetails(BranchDto dto);
     BikeEntity findBikeById(int id);
     void updateBikeDetails(BikeDto dto);
+    boolean deleteBranch(int id);
+    boolean deleteBike(int id);
 }

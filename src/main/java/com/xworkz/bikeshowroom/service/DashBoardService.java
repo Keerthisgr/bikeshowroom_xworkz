@@ -22,4 +22,6 @@ public interface DashBoardService {
     void updateBranch(BranchDto dto);
     BikeDto getBikeById(int id);
     void updateBike(BikeDto dto);
+    boolean deleteBranchById(int id);
+    boolean deleteBikeById(int id);
 }
