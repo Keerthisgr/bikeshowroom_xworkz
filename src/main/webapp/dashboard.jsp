@@ -280,6 +280,10 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="startRegister">Register</a>
                     </li>
+                     <li class="nav-item">
+                                            <a class="nav-link" href="follow-up.jsp">Follow Up</a>
+                                        </li>
+
                 </ul>
             </div>
         </div>
@@ -295,7 +299,7 @@
             <a href="#add-bike" id="bike-link"><i class="fas fa-plus-circle"></i> Add Bike</a>
             <a href="#add-branch" id="branch-link"><i class="fas fa-map-marker-alt"></i> Add Branch</a>
             <a href="#add-showroom" id="showroom-link"><i class="fas fa-store"></i> Add Showroom</a>
-            <a href="follow-up.jsp" id="customers-link"><i class="fas fa-users"></i>Follow up</a>
+            <a href="customers" id="customers-link"><i class="fas fa-users"></i>customers</a>
             <a href="#settings" id="settings-link"><i class="fas fa-cog"></i> Settings</a>
             <a href="#logout" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>

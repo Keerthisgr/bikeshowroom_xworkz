@@ -760,7 +760,7 @@
                         <a class="nav-link" href="aboutUs.jsp">About us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="userlogin.jsp">User login</a>
+                        <a class="nav-link" href="userLogin.jsp">User login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="adminLogin.jsp">Admin</a>
