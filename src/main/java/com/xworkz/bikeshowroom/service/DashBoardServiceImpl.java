@@ -156,9 +156,10 @@ public class DashBoardServiceImpl implements DashBoardService {
     }
 
     @Override
-    public List<BikeEntity> AllBikes() {
-        return dashBoardRepo.getAllBikes();
+    public List<BikeEntity> userSideBikes() {
+        return dashBoardRepo.userSideBikes();
     }
+
 
 }
 

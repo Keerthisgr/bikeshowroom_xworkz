@@ -42,8 +42,8 @@ public class UserController {
 
     @RequestMapping("/viewpage")
     private String bikesViewPage(Model model) {
-        List<BikeEntity> list = dashBoardService.AllBikes();
-        model.addAttribute("bikesList",list);
+        List<BikeEntity> list = dashBoardService.getAllBikes();
+        model.addAttribute("bikelist",list);
         return "viewpage";
     }
 
@@ -59,6 +59,13 @@ public class UserController {
             model.addAttribute("email",email);
             return "resetpassword";
         }
+    }
+    @RequestMapping("/userside-viewbikes")
+    public String userSideBikes( Model model){
+        List<BikeEntity> list = dashBoardService.userSideBikes();
+        model.addAttribute("bikelist", list);
+
+        return "userside-viewbikes";
     }
 
 

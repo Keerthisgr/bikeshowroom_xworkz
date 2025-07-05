@@ -43,7 +43,7 @@ public class DashboardController {
         bikeDto.setFrontimage(frontimgfile);
 
         byte[] bytes2 = bikeDto.getBackview().getBytes();
-        Path path2 = Paths.get("C:\\modules\\left\\" + bikeDto.getBikename() + System.currentTimeMillis());
+        Path path2 = Paths.get("C:\\modules\\back\\" + bikeDto.getBikename() + System.currentTimeMillis());
 
         String backimgfile = path2.getFileName().toString();
         bikeDto.setBackimage(backimgfile);
@@ -58,7 +58,7 @@ public class DashboardController {
         Path path4 = Paths.get("C:\\modules\\left\\" + bikeDto.getBikename() + System.currentTimeMillis());
 
         String leftimgfile = path4.getFileName().toString();
-        bikeDto.setBackimage(leftimgfile);
+        bikeDto.setLeftimage(leftimgfile);
 
         boolean result = dashBoardService.addNewBike(bikeDto);
         if (result) {

@@ -20,6 +20,7 @@ import javax.persistence.*;
 @NamedQuery(name = "updateBikeDetails", query = "UPDATE BikeEntity b SET b.model = :model, b.bikename = :bikename, b.engine = :engine, b.milage = :milage, b.price = :price, b.color = :color WHERE b.id = :id")
 @NamedQuery(name = "deleteBikeById", query = "DELETE FROM BikeEntity b WHERE b.id = :id")
 @NamedQuery(name = "getbikenamebybranch" , query = "select b.model from BikeEntity b where b.branchEntity.id=:branchid")
+@NamedQuery(name = "bikes",query = "SELECT u FROM BikeEntity u")
 
 
 

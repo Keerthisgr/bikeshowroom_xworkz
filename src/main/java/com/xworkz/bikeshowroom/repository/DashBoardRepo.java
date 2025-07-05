@@ -30,4 +30,5 @@ public interface DashBoardRepo {
     boolean followUp(FollowUpEntity followUpEntity);
     List<String> branchList();
     int totalUserCount();
+    List<BikeEntity> userSideBikes();
 }

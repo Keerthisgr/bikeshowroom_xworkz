@@ -473,9 +473,23 @@ public class DashBoardRepoImpl implements DashBoardRepo{
             entityManager.getTransaction().rollback();
             return -1;
         }finally {
-            if (entityManager!=null){
+            if (entityManager != null) {
                 entityManager.close();
             }
+        }
+    }
+
+    @Override
+    public List<BikeEntity> userSideBikes() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createNamedQuery("bikes");
+            List<BikeEntity> bike = query.getResultList();
+            return bike;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
         }
     }
 }

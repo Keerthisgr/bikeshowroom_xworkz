@@ -459,19 +459,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
+                        <a class="nav-link" href="viewpage.jsp">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#bikes">Bikes</a>
+                        <a class="nav-link" href="userside-viewbikes">Bikes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#reviews">Showrooms</a>
+                        <a class="nav-link" href="userside-viewshowroom.jsp">Showrooms</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">Logout</a>
+                        <a class="nav-link" href="index.jsp">Logout</a>
                     </li>
                 </ul>
             </div>
