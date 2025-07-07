@@ -4,16 +4,16 @@ import com.xworkz.bikeshowroom.dto.BikeDto;
 import com.xworkz.bikeshowroom.dto.BranchDto;
 import com.xworkz.bikeshowroom.dto.FollowUpDto;
 import com.xworkz.bikeshowroom.dto.UserRegistrationDto;
-import com.xworkz.bikeshowroom.entity.BikeEntity;
-import com.xworkz.bikeshowroom.entity.BranchEntity;
+import com.xworkz.bikeshowroom.entity.FollowUpEntity;
+import com.xworkz.bikeshowroom.entity.UserRegistrationEntity;
 import com.xworkz.bikeshowroom.service.DashBoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,6 +23,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 
 @Controller
@@ -98,7 +99,6 @@ public class DashboardController {
         model.addAttribute("totalbikes", dashBoardService.totalBikes());
         model.addAttribute("totalbranches", dashBoardService.totalBranches());
         model.addAttribute("totaluser", dashBoardService.totalUsers());
-
         return "dashboard";
     }
 
@@ -147,4 +147,38 @@ public class DashboardController {
         model.addAttribute("branchdata", dashBoardService.branchList());
         return "user-registration";
     }
+
+    @RequestMapping("/follow-up")
+    public String showFollowUpsPage(Model model) {
+        List<UserRegistrationDto> list = dashBoardService.getAllUsers();
+        model.addAttribute("followIt", list);
+        return "follow-up";
+    }
+
+    @RequestMapping("/followupedit")
+    @ResponseBody
+    public UserRegistrationEntity followUpEdit(@RequestParam("fullName") String fullName, Model model) {
+        return dashBoardService.getAllUserByName(fullName);
+    }
+
+    @RequestMapping("/followup-editsubmit")
+    public String editFollowUp(FollowUpDto followUpDto, Model model) {
+
+        followUpDto.setDate(Date.valueOf(LocalDate.now()));
+        followUpDto.setTime(Time.valueOf(LocalTime.now()));
+        Boolean result = dashBoardService.editFollowUpSubmit(followUpDto);
+        if (result) {
+            model.addAttribute("result", "updated successfully");
+        } else {
+            model.addAttribute("result", "update failed!! try again");
+        }
+        return "redirect:/follow-up";
+    }
+    @RequestMapping("/followupview")
+    @ResponseBody
+    public List<FollowUpEntity> followUpViewAll(@RequestParam("fullName") String fullName, Model model) {
+        List<FollowUpEntity> list = dashBoardService.getAllByName(fullName);
+        return list;
+    }
+
 }

@@ -6,6 +6,8 @@ import com.xworkz.bikeshowroom.dto.FollowUpDto;
 import com.xworkz.bikeshowroom.dto.UserRegistrationDto;
 import com.xworkz.bikeshowroom.entity.BikeEntity;
 import com.xworkz.bikeshowroom.entity.BranchEntity;
+import com.xworkz.bikeshowroom.entity.FollowUpEntity;
+import com.xworkz.bikeshowroom.entity.UserRegistrationEntity;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -32,4 +34,8 @@ public interface DashBoardService {
     int totalUsers();
     List<BikeEntity> userSideBikes();
     List<BranchEntity> userSideShowrooms();
+    List<UserRegistrationDto> getAllUsers();
+    UserRegistrationEntity getAllUserByName(String fullName);
+    Boolean editFollowUpSubmit(FollowUpDto followUpDto);
+    List<FollowUpEntity> getAllByName(String fullName);
 }

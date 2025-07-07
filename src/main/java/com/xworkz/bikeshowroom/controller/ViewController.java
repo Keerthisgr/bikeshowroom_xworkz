@@ -1,5 +1,6 @@
 package com.xworkz.bikeshowroom.controller;
 
+import com.xworkz.bikeshowroom.dto.UserRegistrationDto;
 import com.xworkz.bikeshowroom.entity.BikeEntity;
 import com.xworkz.bikeshowroom.entity.BranchEntity;
 import com.xworkz.bikeshowroom.service.DashBoardService;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -155,4 +157,6 @@ public class ViewController {
         IOUtils.copy(in,out);
         response.flushBuffer();
     }
+
+
 }

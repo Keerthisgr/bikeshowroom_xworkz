@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -165,6 +164,31 @@ public class DashBoardServiceImpl implements DashBoardService {
         return dashBoardRepo.userSideShowrooms();
     }
 
+    @Override
+    public List<UserRegistrationDto> getAllUsers() {
+        return dashBoardRepo.getAllUsers();
 
+    }
+
+    @Override
+    public UserRegistrationEntity getAllUserByName(String fullName) {
+        return dashBoardRepo.getAllUserByName(fullName);
+    }
+
+    @Override
+    public Boolean editFollowUpSubmit(FollowUpDto followUpDto) {
+        FollowUpEntity followUpEntity = new FollowUpEntity();
+        BeanUtils.copyProperties(followUpDto,followUpEntity);
+        return dashBoardRepo.editFollowUpSubmit(followUpEntity);
+
+    }
+
+    @Override
+    public List<FollowUpEntity> getAllByName(String fullName) {
+        return dashBoardRepo.getAllByName(fullName);
+    }
 }
+
+
+
 

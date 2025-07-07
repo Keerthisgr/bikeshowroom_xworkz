@@ -1,5 +1,6 @@
 package com.xworkz.bikeshowroom.repository;
 
+import com.xworkz.bikeshowroom.dto.UserRegistrationDto;
 import com.xworkz.bikeshowroom.entity.UserLoginEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -150,4 +151,6 @@ public class UserRegistrationRepoImpl implements UserRegistrationRepo{
             }
         }
     }
+
+
 }

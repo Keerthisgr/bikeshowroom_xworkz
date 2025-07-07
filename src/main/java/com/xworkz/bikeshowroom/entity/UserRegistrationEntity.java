@@ -9,6 +9,8 @@ import javax.persistence.*;
 @Data
 @NamedQuery(name = "checkemailexists",query = "SELECT COUNT(e.email) FROM UserRegistrationEntity e WHERE e.email = :email")
 @NamedQuery(name = "totalusers",query = "SELECT COUNT(b.id) FROM UserRegistrationEntity b")
+@NamedQuery(name = "getAllUser",query = "Select u from  UserRegistrationEntity u")
+@NamedQuery(name = "getallusersbyname",query = "Select u from UserRegistrationEntity u where u.fullName =:fullName")
 
 public class UserRegistrationEntity extends AbstractAuditEntity{
     @Id

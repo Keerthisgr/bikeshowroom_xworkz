@@ -1,5 +1,6 @@
 package com.xworkz.bikeshowroom.service;
 
+import com.xworkz.bikeshowroom.dto.UserRegistrationDto;
 import org.springframework.ui.Model;
 
 import java.util.List;

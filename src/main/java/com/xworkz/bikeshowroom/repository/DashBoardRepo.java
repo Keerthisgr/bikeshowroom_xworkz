@@ -2,6 +2,7 @@ package com.xworkz.bikeshowroom.repository;
 
 import com.xworkz.bikeshowroom.dto.BikeDto;
 import com.xworkz.bikeshowroom.dto.BranchDto;
+import com.xworkz.bikeshowroom.dto.UserRegistrationDto;
 import com.xworkz.bikeshowroom.entity.*;
 
 import java.util.List;
@@ -32,4 +33,8 @@ public interface DashBoardRepo {
     int totalUserCount();
     List<BikeEntity> userSideBikes();
     List<BranchEntity> userSideShowrooms();
+    List<UserRegistrationDto> getAllUsers();
+    UserRegistrationEntity getAllUserByName(String fullName);
+    Boolean editFollowUpSubmit(FollowUpEntity followUpEntity);
+    List<FollowUpEntity> getAllByName(String fullName);
 }

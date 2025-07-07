@@ -401,23 +401,17 @@
                                 <tbody>
                                     <c:forEach items="${followIt}" var="follow">
                                         <tr>
-                                            <td>${follow.name}</td>
-                                            <td>${follow.rideOption}
-                                                <!-- <span class="ride-option-badge ${follow.rideOption eq 'Test Ride' ? 'test-ride' : 'booking'}">
-                                                    ${follow.rideOption}
-                                                </span> -->
-                                            </td>
+                                            <td>${follow.fullName}</td>
+                                            <td>${follow.testRideOption}</td>
                                             <td>${follow.bikeModel}</td>
                                             <td>${follow.showroom}</td>
                                             <td>
                                                 <button class="btn btn-honda-edit btn-sm editFollowupBtn"
-                                                        data-bs-toggle="modal" data-bs-target="#editfollowup"
-                                                        data-name="${follow.name}">
+                                                        data-name="${follow.fullName}">
                                                     <i class="fas fa-edit me-1"></i> Edit
                                                 </button>
                                                 <button class="btn btn-honda-view btn-sm viewFollowupBtn"
-                                                        data-bs-toggle="modal" data-bs-target="#viewfollowup"
-                                                        data-name="${follow.name}">
+                                                        data-name="${follow.fullName}">
                                                     <i class="fas fa-eye me-1"></i> View
                                                 </button>
                                             </td>
@@ -443,19 +437,19 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="followupeditsubmit" method="post">
+                    <form action="followup-editsubmit" method="post">
                         <div class="mb-3">
                             <label for="followupName" class="form-label">Name</label>
-                            <input type="text" id="followupName" class="form-control" name="name" value="${param.name}" readonly>
+                            <input type="text" id="followupName" class="form-control" name="fullName"  readonly>
                         </div>
                         <div class="mb-3">
                             <label for="followupData" class="form-label">Status</label>
-                            <input type="text" id="followupData" class="form-control" name="status" value="${param.rideOption}" readonly>
+                            <input type="text" id="followupData" class="form-control" name="status"  readonly>
                         </div>
                         <div class="mb-3">
                             <label for="message" class="form-label">Message</label>
-                            <input type="text" id="followupMsg" class="form-control" name="msg" value="${param.message}" readonly>
-                        </div>
+                            <input type="text" id="followupMsg" class="form-control" name="message">
+                             </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -487,16 +481,9 @@
                                     <th>Message</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <c:forEach items="${followupDetails}" var="detail">
-                                    <tr>
-                                        <td>${detail.name}</td>
-                                        <td>${detail.date}</td>
-                                        <td>${detail.time}</td>
-                                        <td>${detail.message}</td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
+                           <tbody>
+
+                           </tbody>
                         </table>
                     </div>
                 </div>
@@ -551,11 +538,11 @@
             item.addEventListener('click', function(event) {
                 event.preventDefault();
                 let name = this.getAttribute('data-name');
-                fetch("http://localhost:8090/project_main/followupedit?name=" + encodeURIComponent(name))
+                fetch("http://localhost:8080/bikeshowroom_xworkz/followupedit?fullName=" + encodeURIComponent(name))
                     .then(response => response.json())
                     .then(data => {
-                        document.getElementById("followupName").value = data.name;
-                        document.getElementById("followupData").value = data.rideOption;
+                        document.getElementById("followupName").value = data.fullName;
+                        document.getElementById("followupData").value = data.testRideOption;
                         var myModal = new bootstrap.Modal(document.getElementById("editfollowup"));
                         myModal.show();
                     })
@@ -568,20 +555,28 @@
             item.addEventListener('click', function(event) {
                 event.preventDefault();
                 let name = this.getAttribute('data-name');
-                fetch("http://localhost:8090/project_main/followupview?name=" + encodeURIComponent(name))
+                fetch("http://localhost:8080/bikeshowroom_xworkz/followupview?fullName=" + encodeURIComponent(name))
                     .then(response => response.json())
                     .then(data => {
                         let tableBody = document.querySelector("#followupTable tbody");
                         tableBody.innerHTML = "";
                         data.forEach(user => {
                             let row = document.createElement("tr");
-                            row.innerHTML = `
-                                <td>${user.name}</td>
-                                <td>${user.date}</td>
-                                <td>${user.time}</td>
-                                <td>${user.message}</td>
-                            `;
-                            tableBody.appendChild(row);
+                                                        let cell=document.createElement("td");
+                                                        cell.textContent=user.fullName;
+                                                        row.appendChild(cell);
+                                                        let cell1=document.createElement("td");
+                                                        cell1.textContent=user.date;
+                                                        row.appendChild(cell1)
+
+                                                        let cell2=document.createElement("td");
+                                                        cell2.textContent=user.time;
+                                                        row.appendChild(cell2)
+
+                                                        let cell3=document.createElement("td");
+                                                        cell3.textContent=user.message;
+                                                        row.appendChild(cell3)
+                                                         tableBody.appendChild(row);
                         });
                         var myModal = new bootstrap.Modal(document.getElementById("viewfollowup"));
                         myModal.show();

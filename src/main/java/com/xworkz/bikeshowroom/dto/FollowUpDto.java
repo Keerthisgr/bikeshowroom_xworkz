@@ -8,7 +8,7 @@ import java.sql.Time;
 @Data
 public class FollowUpDto {
     private Integer id;
-    private String name;
+    private String fullName;
     private Date date;
     private Time time;
     private String status;

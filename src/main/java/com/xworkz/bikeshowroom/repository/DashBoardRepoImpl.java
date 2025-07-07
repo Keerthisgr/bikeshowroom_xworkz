@@ -2,6 +2,7 @@ package com.xworkz.bikeshowroom.repository;
 
 import com.xworkz.bikeshowroom.dto.BikeDto;
 import com.xworkz.bikeshowroom.dto.BranchDto;
+import com.xworkz.bikeshowroom.dto.UserRegistrationDto;
 import com.xworkz.bikeshowroom.entity.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,19 +12,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import java.time.LocalDateTime;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 @Slf4j
-public class DashBoardRepoImpl implements DashBoardRepo{
+public class DashBoardRepoImpl implements DashBoardRepo {
 
     @Autowired
     EntityManagerFactory entityManagerFactory;
 
     @Override
     public boolean addNewBranch(BranchEntity branchEntity) {
-        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             branchEntity.setCreatedBy(branchEntity.getManagerName());
             branchEntity.setCreatedTime(LocalDateTime.now());
@@ -31,12 +32,12 @@ public class DashBoardRepoImpl implements DashBoardRepo{
             entityManager.persist(branchEntity);
             entityManager.getTransaction().commit();
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             entityManager.getTransaction().rollback();
             return false;
-        }finally {
-            if (entityManager!=null){
+        } finally {
+            if (entityManager != null) {
                 entityManager.close();
             }
         }
@@ -44,18 +45,18 @@ public class DashBoardRepoImpl implements DashBoardRepo{
 
     @Override
     public boolean addNewBike(BikeEntity bikeEntity) {
-        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(bikeEntity);
             entityManager.getTransaction().commit();
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             entityManager.getTransaction().rollback();
             return false;
-        }finally {
-            if (entityManager!=null){
+        } finally {
+            if (entityManager != null) {
                 entityManager.close();
             }
         }
@@ -64,17 +65,17 @@ public class DashBoardRepoImpl implements DashBoardRepo{
     @Override
     public boolean checkBranchAlreadyExists(String branchName) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        try{
+        try {
             entityManager.getTransaction().begin();
             Query query = entityManager.createNamedQuery("checkbranchexistance");
-            query.setParameter("branchname",branchName);
+            query.setParameter("branchname", branchName);
             Object object = query.getSingleResult();
-            if(object!=null){
+            if (object != null) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
             return false;
         }
@@ -82,19 +83,18 @@ public class DashBoardRepoImpl implements DashBoardRepo{
 
     @Override
     public boolean checkModelAlreadyExists(String modelName) {
-        EntityManager entityManager= entityManagerFactory.createEntityManager();
-        try{
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
             entityManager.getTransaction().begin();
-            Query query=entityManager.createNamedQuery("checkmodelexistance");
-            query.setParameter("modelname",modelName);
-            Object object=query.getSingleResult();
-            if(object!=null){
+            Query query = entityManager.createNamedQuery("checkmodelexistance");
+            query.setParameter("modelname", modelName);
+            Object object = query.getSingleResult();
+            if (object != null) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             return false;
         }
@@ -102,20 +102,20 @@ public class DashBoardRepoImpl implements DashBoardRepo{
 
     @Override
     public boolean addBikeAndBranchToShowroom(int branchId, int bikeId) {
-        EntityManager entityManager=entityManagerFactory.createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
-            Query query=entityManager.createNamedQuery("addshowroom");
-            query.setParameter("branchId",branchId);
-            query.setParameter("bikeId",bikeId);
-            int result1=query.executeUpdate();
+            Query query = entityManager.createNamedQuery("addshowroom");
+            query.setParameter("branchId", branchId);
+            query.setParameter("bikeId", bikeId);
+            int result1 = query.executeUpdate();
             entityManager.getTransaction().commit();
-            if (result1==1){
+            if (result1 == 1) {
                 return true;
-            }else {
+            } else {
                 return false;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             log.info(e.getMessage());
             System.out.println(e.getMessage());
             return false;
@@ -124,18 +124,18 @@ public class DashBoardRepoImpl implements DashBoardRepo{
 
     @Override
     public List<BikeEntity> listOfBikesNotSelected() {
-        EntityManager entityManager= entityManagerFactory.createEntityManager();
-        try{
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
             entityManager.getTransaction().begin();
-            Query query=entityManager.createNamedQuery("listofbikesnotselected");
-            List<BikeEntity> list=query.getResultList();
+            Query query = entityManager.createNamedQuery("listofbikesnotselected");
+            List<BikeEntity> list = query.getResultList();
             return list;
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             entityManager.getTransaction().rollback();
             return null;
-        }finally {
-            if (entityManager!=null){
+        } finally {
+            if (entityManager != null) {
                 entityManager.close();
             }
         }
@@ -143,18 +143,18 @@ public class DashBoardRepoImpl implements DashBoardRepo{
 
     @Override
     public List<BikeEntity> notFullBranchList() {
-        EntityManager entityManager= entityManagerFactory.createEntityManager();
-        try{
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
             entityManager.getTransaction().begin();
-            Query query=entityManager.createNamedQuery("branchwithlimitedbikeslist");
-            List<BikeEntity> list=query.getResultList();
+            Query query = entityManager.createNamedQuery("branchwithlimitedbikeslist");
+            List<BikeEntity> list = query.getResultList();
             return list;
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             entityManager.getTransaction().rollback();
             return null;
-        }finally {
-            if (entityManager!=null){
+        } finally {
+            if (entityManager != null) {
                 entityManager.close();
             }
         }
@@ -181,18 +181,18 @@ public class DashBoardRepoImpl implements DashBoardRepo{
 
     @Override
     public int totalBranchCount() {
-        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
-            Query query=entityManager.createNamedQuery("totalbranches");
-            Long count= (Long) query.getSingleResult();
+            Query query = entityManager.createNamedQuery("totalbranches");
+            Long count = (Long) query.getSingleResult();
             return Math.toIntExact(count);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             entityManager.getTransaction().rollback();
             return -1;
-        }finally {
-            if (entityManager!=null) {
+        } finally {
+            if (entityManager != null) {
                 entityManager.close();
 
             }
@@ -384,18 +384,18 @@ public class DashBoardRepoImpl implements DashBoardRepo{
 
     @Override
     public boolean saveLogin(UserLoginEntity userLoginEntity) {
-        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(userLoginEntity);
             entityManager.getTransaction().commit();
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             entityManager.getTransaction().rollback();
             return false;
-        }finally {
-            if (entityManager!=null){
+        } finally {
+            if (entityManager != null) {
                 entityManager.close();
             }
         }
@@ -403,7 +403,7 @@ public class DashBoardRepoImpl implements DashBoardRepo{
 
     @Override
     public boolean register(UserRegistrationEntity userRegistrationEntity) {
-        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             userRegistrationEntity.setCreatedBy(userRegistrationEntity.getFullName());
             userRegistrationEntity.setCreatedTime(LocalDateTime.now());
@@ -411,12 +411,12 @@ public class DashBoardRepoImpl implements DashBoardRepo{
             entityManager.persist(userRegistrationEntity);
             entityManager.getTransaction().commit();
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             entityManager.getTransaction().rollback();
             return false;
-        }finally {
-            if (entityManager!=null){
+        } finally {
+            if (entityManager != null) {
                 entityManager.close();
             }
         }
@@ -424,18 +424,18 @@ public class DashBoardRepoImpl implements DashBoardRepo{
 
     @Override
     public boolean followUp(FollowUpEntity followUpEntity) {
-        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(followUpEntity);
             entityManager.getTransaction().commit();
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             entityManager.getTransaction().rollback();
             return false;
-        }finally {
-            if (entityManager!=null){
+        } finally {
+            if (entityManager != null) {
                 entityManager.close();
             }
         }
@@ -443,18 +443,18 @@ public class DashBoardRepoImpl implements DashBoardRepo{
 
     @Override
     public List<String> branchList() {
-        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
-            Query query=entityManager.createNamedQuery("branchName");
+            Query query = entityManager.createNamedQuery("branchName");
             List<String> list = query.getResultList();
             return list;
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             entityManager.getTransaction().rollback();
             return null;
-        }finally {
-            if (entityManager!=null){
+        } finally {
+            if (entityManager != null) {
                 entityManager.close();
             }
         }
@@ -462,17 +462,17 @@ public class DashBoardRepoImpl implements DashBoardRepo{
 
     @Override
     public int totalUserCount() {
-        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
-            Query query=entityManager.createNamedQuery("totalusers");
-            Long count= (Long) query.getSingleResult();
+            Query query = entityManager.createNamedQuery("totalusers");
+            Long count = (Long) query.getSingleResult();
             return Math.toIntExact(count);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             entityManager.getTransaction().rollback();
             return -1;
-        }finally {
+        } finally {
             if (entityManager != null) {
                 entityManager.close();
             }
@@ -495,20 +495,100 @@ public class DashBoardRepoImpl implements DashBoardRepo{
 
     @Override
     public List<BranchEntity> userSideShowrooms() {
-        EntityManager entityManager= entityManagerFactory.createEntityManager();
-        try{
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
             entityManager.getTransaction().begin();
-            Query query=entityManager.createNamedQuery("showrooms");
-            List<BranchEntity> list= query.getResultList();
+            Query query = entityManager.createNamedQuery("showrooms");
+            List<BranchEntity> list = query.getResultList();
             return list;
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             entityManager.getTransaction().rollback();
             return null;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
+    }
+
+    @Override
+    public List<UserRegistrationDto> getAllUsers() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createNamedQuery("getAllUser");
+            List<UserRegistrationEntity> list = query.getResultList();
+            List<UserRegistrationDto> dtos = new ArrayList<>();
+            for (UserRegistrationEntity entity : list) {
+                UserRegistrationDto dto = new UserRegistrationDto();
+                dto.setFullName(entity.getFullName());
+                dto.setTestRideOption(entity.getTestRideOption());
+                dto.setBikeModel(entity.getBikeModel());
+                dto.setShowroom(entity.getShowroom());
+                dtos.add(dto);
+            }
+
+            entityManager.getTransaction().commit();
+            return dtos;
+
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
+    }
+
+    @Override
+    public UserRegistrationEntity getAllUserByName(String fullName) {
+        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            Query query=entityManager.createNamedQuery("getallusersbyname");
+            query.setParameter("fullName",fullName);
+            UserRegistrationEntity userRegistrationEntity= (UserRegistrationEntity) query.getSingleResult();
+
+            return userRegistrationEntity;
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean editFollowUpSubmit(FollowUpEntity followUpEntity) {
+        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(followUpEntity);
+            entityManager.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            log.error(e.getMessage());
+            entityManager.getTransaction().rollback();
+            return false;
         }finally {
             if (entityManager!=null){
                 entityManager.close();
             }
         }
     }
+
+    @Override
+    public List<FollowUpEntity> getAllByName(String fullName) {
+        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            Query query=entityManager.createNamedQuery("getallonname");
+            query.setParameter("fullName",fullName);
+            List<FollowUpEntity>  list = query.getResultList();
+            return list;
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return null;
+        }    }
 }

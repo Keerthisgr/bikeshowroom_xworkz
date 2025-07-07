@@ -1,5 +1,6 @@
 package com.xworkz.bikeshowroom.service;
 
+import com.xworkz.bikeshowroom.dto.UserRegistrationDto;
 import com.xworkz.bikeshowroom.entity.UserLoginEntity;
 import com.xworkz.bikeshowroom.repository.UserRegistrationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,4 +79,6 @@ public class UserRegitrationServiceImpl implements UserRegistrationService{
     public void resetLogin(String email) {
         userRegistrationRepo.resetLogin(email);
     }
+
+
 }

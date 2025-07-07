@@ -1,5 +1,6 @@
 package com.xworkz.bikeshowroom.repository;
 
+import com.xworkz.bikeshowroom.dto.UserRegistrationDto;
 import com.xworkz.bikeshowroom.entity.UserLoginEntity;
 
 import java.util.List;
