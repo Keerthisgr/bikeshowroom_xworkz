@@ -465,7 +465,7 @@
                         <a class="nav-link" href="userside-viewbikes">Bikes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="userside-viewshowroom.jsp">Showrooms</a>
+                        <a class="nav-link" href="userside-viewshowrooms">Showrooms</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Profile</a>

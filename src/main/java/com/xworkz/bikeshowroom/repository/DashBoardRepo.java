@@ -31,4 +31,5 @@ public interface DashBoardRepo {
     List<String> branchList();
     int totalUserCount();
     List<BikeEntity> userSideBikes();
+    List<BranchEntity> userSideShowrooms();
 }

@@ -1,6 +1,7 @@
 package com.xworkz.bikeshowroom.controller;
 
 import com.xworkz.bikeshowroom.entity.BikeEntity;
+import com.xworkz.bikeshowroom.entity.BranchEntity;
 import com.xworkz.bikeshowroom.service.AdminLoginService;
 import com.xworkz.bikeshowroom.service.DashBoardService;
 import com.xworkz.bikeshowroom.service.UserRegistrationService;
@@ -67,6 +68,11 @@ public class UserController {
 
         return "userside-viewbikes";
     }
-
+    @RequestMapping("/userside-viewshowrooms")
+    public String userSideShowrroms(Model model){
+        List<BranchEntity> list=dashBoardService.userSideShowrooms();
+        model.addAttribute("showroomlist",list);
+        return "userside-viewshowrooms";
+    }
 
 }

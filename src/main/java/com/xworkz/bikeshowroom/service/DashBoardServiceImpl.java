@@ -160,6 +160,11 @@ public class DashBoardServiceImpl implements DashBoardService {
         return dashBoardRepo.userSideBikes();
     }
 
+    @Override
+    public List<BranchEntity> userSideShowrooms() {
+        return dashBoardRepo.userSideShowrooms();
+    }
+
 
 }
 

@@ -21,6 +21,7 @@ import java.util.List;
 @NamedQuery(name = "deleteBranchById", query = "DELETE FROM BranchEntity b WHERE b.id = :id")
 @NamedQuery(name = "branchName",query = "SELECT p.branchName FROM BranchEntity p where p.status = 'active'")
 @NamedQuery(name = "getbranchnamefromid",query = "select p.id from BranchEntity p where p.branchName =: branchName")
+@NamedQuery(name = "showrooms",query = "SELECT u FROM BranchEntity u")
 
 
 public class BranchEntity extends AbstractAuditEntity{

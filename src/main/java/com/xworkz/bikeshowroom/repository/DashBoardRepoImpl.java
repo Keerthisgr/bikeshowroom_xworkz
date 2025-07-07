@@ -492,4 +492,23 @@ public class DashBoardRepoImpl implements DashBoardRepo{
             return null;
         }
     }
+
+    @Override
+    public List<BranchEntity> userSideShowrooms() {
+        EntityManager entityManager= entityManagerFactory.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            Query query=entityManager.createNamedQuery("showrooms");
+            List<BranchEntity> list= query.getResultList();
+            return list;
+        }catch (Exception e){
+            log.error(e.getMessage());
+            entityManager.getTransaction().rollback();
+            return null;
+        }finally {
+            if (entityManager!=null){
+                entityManager.close();
+            }
+        }
+    }
 }
