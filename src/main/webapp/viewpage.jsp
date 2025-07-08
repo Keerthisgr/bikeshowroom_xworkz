@@ -468,7 +468,7 @@
                         <a class="nav-link" href="userside-viewshowrooms">Showrooms</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">Profile</a>
+                        <a class="nav-link" href="userprofile?email=${email}">Profile</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="index.jsp">Logout</a>

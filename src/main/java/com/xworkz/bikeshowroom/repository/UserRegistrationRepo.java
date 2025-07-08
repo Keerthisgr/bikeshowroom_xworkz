@@ -1,6 +1,7 @@
 package com.xworkz.bikeshowroom.repository;
 
-import com.xworkz.bikeshowroom.dto.UserRegistrationDto;
+import com.xworkz.bikeshowroom.entity.BikeEntity;
+import com.xworkz.bikeshowroom.entity.BranchEntity;
 import com.xworkz.bikeshowroom.entity.UserLoginEntity;
 import com.xworkz.bikeshowroom.entity.UserRegistrationEntity;
 
@@ -22,4 +23,11 @@ public interface UserRegistrationRepo {
     boolean isPhoneExists(String phone);
 
     boolean isDlNumberExists(String dlNumber);
+
+    UserRegistrationEntity getUserByEmail(String email);
+    boolean updateUser(UserRegistrationEntity entity);
+
+    List<BranchEntity> getAllBranchNames();
+
+    List<BikeEntity> getAllBikeNames();
 }

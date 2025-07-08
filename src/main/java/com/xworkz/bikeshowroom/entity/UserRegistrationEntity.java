@@ -16,6 +16,8 @@ import javax.persistence.*;
 @NamedQuery(name = "findByPhone", query = "FROM UserRegistrationEntity u WHERE u.phone = :ph")
 @NamedQuery(name = "findByDlNumber", query = "FROM UserRegistrationEntity u WHERE u.dlNumber = :dl")
 
+@NamedQuery(name = "getUserByEmail", query = "FROM UserRegistrationEntity u WHERE u.email = :email")
+@NamedQuery(name = "updateUserProfile", query = "UPDATE UserRegistrationEntity u SET u.phone = :phone, u.age = :age, u.address = :address, u.showroom = :showroom, u.bikeModel = :bikeModel, u.testRideOption = :testRideOption, u.rideDate = :rideDate, u.rideTime = :rideTime, u.profilePicture = :profilePicture WHERE u.id = :id")
 
 public class UserRegistrationEntity extends AbstractAuditEntity{
     @Id

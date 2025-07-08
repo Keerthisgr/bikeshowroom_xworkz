@@ -1,14 +1,21 @@
 package com.xworkz.bikeshowroom.service;
 
 import com.xworkz.bikeshowroom.dto.UserRegistrationDto;
+import com.xworkz.bikeshowroom.entity.BikeEntity;
+import com.xworkz.bikeshowroom.entity.BranchEntity;
 import com.xworkz.bikeshowroom.entity.UserLoginEntity;
+import com.xworkz.bikeshowroom.entity.UserRegistrationEntity;
 import com.xworkz.bikeshowroom.repository.UserRegistrationRepo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -100,5 +107,60 @@ public class UserRegitrationServiceImpl implements UserRegistrationService{
         return userRegistrationRepo.isDlNumberExists(dlNumber);
     }
 
+    @Override
+    public UserRegistrationDto getUserProfile(String email) {
+        UserRegistrationEntity entity = userRegistrationRepo.getUserByEmail(email);
+        if (entity != null) {
+            UserRegistrationDto dto = new UserRegistrationDto();
+            BeanUtils.copyProperties(entity, dto);
+            return dto;
+        }
+        return null;
+    }
 
+    @Override
+    @Transactional
+    public boolean updateUserProfile(UserRegistrationDto dto, MultipartFile photoFile) {
+        UserRegistrationEntity entity = userRegistrationRepo.getUserByEmail(dto.getEmail());
+
+        if (entity != null) {
+            entity.setPhone(dto.getPhone());
+            entity.setAge(dto.getAge());
+            entity.setAddress(dto.getAddress());
+            entity.setShowroom(dto.getShowroom());
+            entity.setBikeModel(dto.getBikeModel());
+            entity.setTestRideOption(dto.getTestRideOption());
+            entity.setRideDate(dto.getRideDate());
+            entity.setRideTime(dto.getRideTime());
+
+            if (photoFile != null && !photoFile.isEmpty()) {
+                try {
+                    String fileName = "profile_" + System.currentTimeMillis() + "_" + photoFile.getOriginalFilename();
+                    String path = "C:/modules/profile/" + fileName;
+                    photoFile.transferTo(new File(path));
+                    entity.setProfilePicture(fileName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return userRegistrationRepo.updateUser(entity);
+        }
+        return false;
+    }
+
+    @Override
+    public List<BranchEntity> getAllBranchesList() {
+        return userRegistrationRepo.getAllBranchNames();
+
+    }
+
+    @Override
+    public List<BikeEntity> getAllBikesList() {
+        return userRegistrationRepo.getAllBikeNames();
+
+    }
 }
+
+
+

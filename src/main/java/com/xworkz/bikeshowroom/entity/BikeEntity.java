@@ -21,6 +21,7 @@ import javax.persistence.*;
 @NamedQuery(name = "deleteBikeById", query = "DELETE FROM BikeEntity b WHERE b.id = :id")
 @NamedQuery(name = "getbikenamebybranch" , query = "select b.model from BikeEntity b where b.branchEntity.id=:branchid")
 @NamedQuery(name = "bikes",query = "SELECT u FROM BikeEntity u")
+@NamedQuery(name = "getAllBikeNames", query = "SELECT b FROM BikeEntity b")
 
 
 

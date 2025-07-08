@@ -22,6 +22,7 @@ import java.util.List;
 @NamedQuery(name = "branchName",query = "SELECT p.branchName FROM BranchEntity p where p.status = 'active'")
 @NamedQuery(name = "getbranchnamefromid",query = "select p.id from BranchEntity p where p.branchName =: branchName")
 @NamedQuery(name = "showrooms",query = "SELECT u FROM BranchEntity u")
+@NamedQuery(name = "getAllBranchNames", query = "SELECT b FROM BranchEntity b")
 
 
 public class BranchEntity extends AbstractAuditEntity{

@@ -1,14 +1,16 @@
 package com.xworkz.bikeshowroom.repository;
 
+import com.xworkz.bikeshowroom.entity.BikeEntity;
+import com.xworkz.bikeshowroom.entity.BranchEntity;
 import com.xworkz.bikeshowroom.entity.UserLoginEntity;
+import com.xworkz.bikeshowroom.entity.UserRegistrationEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
+import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,6 +20,9 @@ public class UserRegistrationRepoImpl implements UserRegistrationRepo{
     private static final Logger log = LoggerFactory.getLogger(AdminLoginRepoImpl.class);
     @Autowired
     EntityManagerFactory entityManagerFactory;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public Long emailExists(String email) {
@@ -199,10 +204,48 @@ public class UserRegistrationRepoImpl implements UserRegistrationRepo{
         } finally {
             em.close();
         }
+
     }
 
+    @Override
+    public UserRegistrationEntity getUserByEmail(String email) {
+        try {
+            return entityManager.createNamedQuery("getUserByEmail", UserRegistrationEntity.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 
+    @Override
+    @Transactional
+    public boolean updateUser(UserRegistrationEntity entity) {
+        int updated = entityManager.createNamedQuery("updateUserProfile")
+                .setParameter("phone", entity.getPhone())
+                .setParameter("age", entity.getAge())
+                .setParameter("address", entity.getAddress())
+                .setParameter("showroom", entity.getShowroom())
+                .setParameter("bikeModel", entity.getBikeModel())
+                .setParameter("testRideOption", entity.getTestRideOption())
+                .setParameter("rideDate", entity.getRideDate())
+                .setParameter("rideTime", entity.getRideTime())
+                .setParameter("profilePicture", entity.getProfilePicture())
+                .setParameter("id", entity.getId())
+                .executeUpdate();
+        return updated > 0;
+    }
 
+    @Override
+    public List<BranchEntity> getAllBranchNames() {
+        return entityManager.createNamedQuery("getAllBranchNames", BranchEntity.class).getResultList();
 
+    }
+
+    @Override
+    public List<BikeEntity> getAllBikeNames() {
+        return entityManager.createNamedQuery("getAllBikeNames", BikeEntity.class).getResultList();
+
+    }
 
 }

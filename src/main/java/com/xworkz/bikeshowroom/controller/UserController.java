@@ -3,16 +3,23 @@ package com.xworkz.bikeshowroom.controller;
 import com.xworkz.bikeshowroom.dto.UserRegistrationDto;
 import com.xworkz.bikeshowroom.entity.BikeEntity;
 import com.xworkz.bikeshowroom.entity.BranchEntity;
+import com.xworkz.bikeshowroom.entity.UserRegistrationEntity;
 import com.xworkz.bikeshowroom.service.AdminLoginService;
 import com.xworkz.bikeshowroom.service.DashBoardService;
 import com.xworkz.bikeshowroom.service.UserRegistrationService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.List;
 
 @Controller
@@ -70,11 +77,10 @@ public class UserController {
         return "userside-viewbikes";
     }
     @RequestMapping("/userside-viewshowrooms")
-    public String userSideShowrroms(Model model){
+    public String userSideShowrooms(Model model){
         List<BranchEntity> list=dashBoardService.userSideShowrooms();
         model.addAttribute("showroomlist",list);
         return "userside-viewshowrooms";
+
     }
-
-
 }
