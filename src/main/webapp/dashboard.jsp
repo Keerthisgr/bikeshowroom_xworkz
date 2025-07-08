@@ -281,7 +281,7 @@
                         <a class="nav-link active" href="startRegister">Register</a>
                     </li>
                      <li class="nav-item">
-                                            <a class="nav-link" href="follow-up">Follow Up</a>
+                     <a class="nav-link" href="follow-up">Follow Up</a>
                                         </li>
 
                 </ul>

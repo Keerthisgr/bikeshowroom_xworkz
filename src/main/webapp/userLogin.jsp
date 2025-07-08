@@ -343,7 +343,7 @@
                     <button type="submit" class="btn login-btn">Sign In</button>
                     <div class="form-footer">
                         <div class="forgot-password">
-                            <a href="forgotPassword.jsp">Forgot Password?</a>
+                            <a href="resetpassword.jsp">Forgot Password?</a>
                         </div>
                         <div class="register-link">
                             <a href="register.jsp">Create Account</a>

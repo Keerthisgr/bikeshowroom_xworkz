@@ -1,6 +1,5 @@
 package com.xworkz.bikeshowroom.repository;
 
-import com.xworkz.bikeshowroom.dto.UserRegistrationDto;
 import com.xworkz.bikeshowroom.entity.UserLoginEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -151,6 +149,60 @@ public class UserRegistrationRepoImpl implements UserRegistrationRepo{
             }
         }
     }
+    @Override
+    public boolean isFullNameExists(String fullName) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            Query query = em.createNamedQuery("findByFullName");
+            query.setParameter("nm", fullName);
+            List<?> result = query.getResultList();
+            return !result.isEmpty();
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public boolean isEmailExists(String email) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            Query query = em.createNamedQuery("findByEmail");
+            query.setParameter("em", email);
+            List<?> result = query.getResultList();
+            return !result.isEmpty();
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public boolean isPhoneExists(String phone) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            Query query = em.createNamedQuery("findByPhone");
+            query.setParameter("ph", phone);
+            List<?> result = query.getResultList();
+            return !result.isEmpty();
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public boolean isDlNumberExists(String dlNumber) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            Query query = em.createNamedQuery("findByDlNumber");
+            query.setParameter("dl", dlNumber);
+            List<?> result = query.getResultList();
+            return !result.isEmpty();
+        } finally {
+            em.close();
+        }
+    }
+
+
+
 
 
 }

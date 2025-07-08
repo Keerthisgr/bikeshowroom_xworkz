@@ -11,6 +11,11 @@ import javax.persistence.*;
 @NamedQuery(name = "totalusers",query = "SELECT COUNT(b.id) FROM UserRegistrationEntity b")
 @NamedQuery(name = "getAllUser",query = "Select u from  UserRegistrationEntity u")
 @NamedQuery(name = "getallusersbyname",query = "Select u from UserRegistrationEntity u where u.fullName =:fullName")
+@NamedQuery(name = "findByFullName", query = "FROM UserRegistrationEntity u WHERE u.fullName = :nm")
+@NamedQuery(name = "findByEmail", query = "FROM UserRegistrationEntity u WHERE u.email = :em")
+@NamedQuery(name = "findByPhone", query = "FROM UserRegistrationEntity u WHERE u.phone = :ph")
+@NamedQuery(name = "findByDlNumber", query = "FROM UserRegistrationEntity u WHERE u.dlNumber = :dl")
+
 
 public class UserRegistrationEntity extends AbstractAuditEntity{
     @Id

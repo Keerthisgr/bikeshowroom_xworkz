@@ -11,4 +11,10 @@ public interface UserRegistrationService {
     int userLogin(String email, String password, Model model);
     boolean setPassword(String email, String password);
     void resetLogin(String email);
-}
+    boolean isFullNameExists(String fullName);
+
+    boolean isEmailExists(String email);
+
+    boolean isPhoneExists(String phone);
+
+    boolean isDlNumberExists(String dlNumber);}

@@ -410,40 +410,37 @@
                             <div class="form-row">
                                 <div class="form-col">
                                     <div class="form-group">
-                                        <label for="fullName" class="form-label">Full Name</label>
-                                        <input type="text" class="form-control" id="fullName" name="fullName"
-                                               placeholder="Enter your full name" required
-                                               pattern="[A-Z][a-zA-Z ]+" title="First letter should be capital and only alphabets allowed">
-                                        <div class="invalid-feedback">Please enter a valid name (first letter capital, only alphabets)</div>
-                                    </div>
+                                    <span id="nameerror" class="errormessage"></span><br>
+                                     <label for="fullName" class="form-label">Full Name</label>
+                                     <input type="text" class="form-control" id="fullName" onChange="checkFullNameUnique()" name="fullName" placeholder="Enter your full name" required>
+                                     </div>
                                 </div>
                                 <div class="form-col">
                                     <div class="form-group">
-                                        <label for="email" class="form-label">Email Address</label>
-                                        <input type="email" class="form-control" id="email" name="email"
-                                               placeholder="Enter your email" required>
-                                        <div class="invalid-feedback">Please enter a valid email address</div>
-                                    </div>
+                                    <span id="emailerror" class="errormessage"></span><br>
+                                    <label for="email" class="form-label">Email ID</label>
+                                                                            <input type="email" class="form-control" id="email" onChange="checkEmailUnique()" name="email" placeholder="Enter email address" required>
+
+                                        </div>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-col">
                                     <div class="form-group">
-                                        <label for="phone" class="form-label">Phone Number</label>
-                                        <input type="tel" class="form-control" id="phone" name="phone"
-                                               placeholder="Enter your phone number" required
-                                               pattern="[0-9]{10}" title="10 digit phone number">
-                                        <div class="invalid-feedback">Please enter a valid 10-digit phone number</div>
-                                    </div>
+                                    <span id="phoneerror" class="errormessage"></span><br>
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                                                            <input type="tel" class="form-control" onChange="checkPhoneUnique()" id="phone" name="phone" placeholder="Enter phone number" required>
+
+                                       </div>
                                 </div>
                                 <div class="form-col">
                                     <div class="form-group">
-                                        <label for="age" class="form-label">Age</label>
-                                        <input type="number" class="form-control" id="age" name="age"
-                                               placeholder="Enter your age" min="18" max="80" required>
-                                        <div class="invalid-feedback">You must be at least 18 years old</div>
-                                    </div>
+                                       <span id="ageerror" class="errormessage"></span><br>
+                                       <label for="age" class="form-label">Age</label>
+                                       <input type="number" class="form-control" id="age" name="age"
+                                              placeholder="Enter your age" min="18" max="80" onChange="checkAgeValid()" required>
+                                        </div>
                                 </div>
                             </div>
 
@@ -463,11 +460,10 @@
                             <div class="form-row">
                                 <div class="form-col">
                                     <div class="form-group">
-                                        <label for="dlNumber" class="form-label">Driving License Number</label>
-                                        <input type="text" class="form-control" id="dlNumber" name="dlNumber"
-                                               placeholder="Enter DL number" required
-                                               pattern="[A-Za-z0-9]{8,20}" title="8-20 alphanumeric characters">
-                                        <div class="invalid-feedback">Please enter a valid DL number (8-20 alphanumeric characters)</div>
+                                    <span id="dlnoerror" class="errormessage"></span><br>
+                                    <label for="dlNumber" class="form-label">Driving License No.</label>
+                                                                            <input type="text" class="form-control" id="dlNumber" name="dlNumber" onChange="checkDLNumberUnique()" placeholder="Enter DL number" required>
+
                                     </div>
                                 </div>
                                 <div class="form-col">
@@ -677,86 +673,103 @@
                 registerBtn.disabled = false;
             }
         }
+        function checkFullNameUnique() {
+        var name=document.getElementById('fullName').value;
+                    const patter=/^[A-Z][a-z]*$/;
+                    if(patter.test(name)){
+                    document.getElementById('nameerror').innerHTML="";
+                            if (name!=="") {
+                                 var xhttp = new XMLHttpRequest();
+                                 xhttp.open("GET","http://localhost:8080/bikeshowroom_xworkz/name?fullName="+name);
+                                 xhttp.send();
 
-        // Field validation functions
-        function validateName() {
-            const nameInput = document.getElementById('fullName');
-            const regex = /^[A-Z][a-zA-Z ]+$/;
+                                 xhttp.onload = function(){
+                                 document.getElementById("nameerror").innerHTML = this.responseText;
+                              }
+                          }
 
-            if (!regex.test(nameInput.value)) {
-                nameInput.classList.add('is-invalid');
-                document.querySelector('#fullName + .invalid-feedback').style.display = 'block';
-                return false;
+                    }else{
+                        document.getElementById('nameerror').innerHTML="Please enter a valid name (first letter capital, only alphabets)";
+                    }
+
+        }
+
+       function checkEmailUnique() {
+           var email = document.getElementById('email').value;
+           const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+           if (pattern.test(email)) {
+               document.getElementById('emailerror').innerHTML = "";
+               if (email !== "") {
+                   var xhttp = new XMLHttpRequest();
+                   xhttp.open("GET", "http://localhost:8080/bikeshowroom_xworkz/validateemail?email=" + email);
+                   xhttp.send();
+
+                   xhttp.onload = function () {
+                       document.getElementById("emailerror").innerHTML = this.responseText;
+                   }
+               }
+           } else {
+               document.getElementById('emailerror').innerHTML = "Please enter a valid email address";
+           }
+       }
+
+
+
+        function checkPhoneUnique() {
+            var number = document.getElementById('phone').value;
+            const pattern = /^[6-9]\d{9}$/;
+
+            if (pattern.test(number)) {
+                document.getElementById('phoneerror').innerHTML = "";
+                if (number !== "") {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.open("GET", "http://localhost:8080/bikeshowroom_xworkz/phonenumber?phone=" + number);
+                    xhttp.send();
+
+                    xhttp.onload = function () {
+                        document.getElementById("phoneerror").innerHTML = this.responseText;
+                    }
+                }
             } else {
-                nameInput.classList.remove('is-invalid');
-                document.querySelector('#fullName + .invalid-feedback').style.display = 'none';
-                return true;
+                document.getElementById('phoneerror').innerHTML = "Please enter a valid 10-digit phone number";
             }
         }
 
-        function validateEmail() {
-            const emailInput = document.getElementById('email');
-            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            if (!regex.test(emailInput.value)) {
-                emailInput.classList.add('is-invalid');
-                document.querySelector('#email + .invalid-feedback').style.display = 'block';
-                return false;
+        function checkDLNumberUnique() {
+            var dlNumber = document.getElementById('dlNumber').value;
+            const pattern = /^[A-Z]{2}\d{2}\s\d{11}$/; // Example: KA01 12345678901
+
+            if (pattern.test(dlNumber)) {
+                document.getElementById('dlnoerror').innerHTML = "";
+                if (dlNumber !== "") {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.open("GET", "http://localhost:8080/bikeshowroom_xworkz/dlnumber?dlnum=" + dlNumber);
+                    xhttp.send();
+
+                    xhttp.onload = function () {
+                        document.getElementById("dlnoerror").innerHTML = this.responseText;
+                    }
+                }
             } else {
-                emailInput.classList.remove('is-invalid');
-                document.querySelector('#email + .invalid-feedback').style.display = 'none';
-                return true;
+                document.getElementById('dlnoerror').innerHTML = "Please enter a valid DL number (e.g., KA01 12345678901)";
             }
         }
 
-        function validatePhone() {
-            const phoneInput = document.getElementById('phone');
-            const regex = /^[0-9]{10}$/;
+        function checkAgeValid() {
+            var age = document.getElementById('age').value;
+            const pattern = /^(1[89]|[2-7][0-9]|80)$/; // Valid range: 18–80
 
-            if (!regex.test(phoneInput.value)) {
-                phoneInput.classList.add('is-invalid');
-                document.querySelector('#phone + .invalid-feedback').style.display = 'block';
-                return false;
+            if (pattern.test(age)) {
+                document.getElementById('ageerror').innerHTML = "";
             } else {
-                phoneInput.classList.remove('is-invalid');
-                document.querySelector('#phone + .invalid-feedback').style.display = 'none';
-                return true;
+                document.getElementById('ageerror').innerHTML = "Age must be between 18 and 80";
             }
         }
 
-        function validateAge() {
-            const ageInput = document.getElementById('age');
-            const age = parseInt(ageInput.value);
 
-            if (isNaN(age)) {
-                ageInput.classList.add('is-invalid');
-                document.querySelector('#age + .invalid-feedback').style.display = 'block';
-                return false;
-            } else if (age < 18 || age > 80) {
-                ageInput.classList.add('is-invalid');
-                document.querySelector('#age + .invalid-feedback').style.display = 'block';
-                return false;
-            } else {
-                ageInput.classList.remove('is-invalid');
-                document.querySelector('#age + .invalid-feedback').style.display = 'none';
-                return true;
-            }
-        }
 
-        function validateDL() {
-            const dlInput = document.getElementById('dlNumber');
-            const regex = /^[A-Za-z0-9]{8,20}$/;
-
-            if (!regex.test(dlInput.value)) {
-                dlInput.classList.add('is-invalid');
-                document.querySelector('#dlNumber + .invalid-feedback').style.display = 'block';
-                return false;
-            } else {
-                dlInput.classList.remove('is-invalid');
-                document.querySelector('#dlNumber + .invalid-feedback').style.display = 'none';
-                return true;
-            }
-        }
         function validateDropdowns() {
             const showroom = document.getElementById('showroom').value;
             const bikeModel = document.getElementById('bikeModel').value;

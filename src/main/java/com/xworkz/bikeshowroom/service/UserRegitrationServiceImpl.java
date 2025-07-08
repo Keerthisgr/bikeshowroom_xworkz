@@ -80,5 +80,25 @@ public class UserRegitrationServiceImpl implements UserRegistrationService{
         userRegistrationRepo.resetLogin(email);
     }
 
+    @Override
+    public boolean isFullNameExists(String fullName) {
+        return userRegistrationRepo.isFullNameExists(fullName);
+    }
+
+    @Override
+    public boolean isEmailExists(String email) {
+        return userRegistrationRepo.isEmailExists(email);
+    }
+
+    @Override
+    public boolean isPhoneExists(String phone) {
+        return userRegistrationRepo.isPhoneExists(phone);
+    }
+
+    @Override
+    public boolean isDlNumberExists(String dlNumber) {
+        return userRegistrationRepo.isDlNumberExists(dlNumber);
+    }
+
 
 }
