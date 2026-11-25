@@ -10,8 +10,8 @@ import java.util.Properties;
 public class EmailSender {
     public static boolean sendEmail(String email, String generatedOtp) {
 
-        final String username = "keerthisr.xworkz@gmail.com";
-        final String password = "ohxr ubph atwv syda";
+        final String username = "0102.keerthi@gmail.com";
+        final String password = "ugnx gfcc rmpx xmcb";
 
         Properties pro = new Properties();
         pro.put("mail.smtp.host", "smtp.gmail.com");
