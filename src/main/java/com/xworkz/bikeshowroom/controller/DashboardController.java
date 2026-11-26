@@ -135,14 +135,14 @@ public class DashboardController {
         followUpDto.setStatus(userRegistrationDto.getTestRideOption());
         dashBoardService.followUp(followUpDto);
         if (result) {
-            model.addAttribute("result", "Registration done successfully!!");
-
+            model.addAttribute("result", "Registered successfully!");
+            return "userLogin";
         } else {
             model.addAttribute("result", "Registration failed");
+            return "user-registration";
         }
-        return this.dashboard(model);
     }
-    @RequestMapping("/startRegister")
+        @RequestMapping("/startRegister")
     public String startRegister(Model model) {
         model.addAttribute("branchdata", dashBoardService.branchList());
         return "user-registration";
