@@ -385,7 +385,7 @@
             </div>
             <form action="updatepassword" method="post">
                 <span>${result}</span>
-                <input type="text" name="email" hidden value="${email}" />
+                <input type="text" name="email" value="${email}" />
 
                 <!-- Password Requirements (moved above password field) -->
                 <div class="password-rules">
@@ -425,7 +425,7 @@
 
                 <button type="submit" class="btn reset-btn" id="submitBtn" disabled>Update Now</button>
                 <div class="back-to-login">
-                    <a href="login.jsp"><i class="fas fa-arrow-left me-2"></i>Login with new password</a>
+                    <a href="userLogin.jsp"><i class="fas fa-arrow-left me-2"></i>Login with new password</a>
                 </div>
             </form>
         </div>
