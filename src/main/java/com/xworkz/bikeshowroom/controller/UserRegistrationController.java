@@ -62,4 +62,12 @@ public class UserRegistrationController {
         return "redirect:/userprofile?email=" + dto.getEmail();
     }
 
+    @GetMapping("/userRegistration")
+    public String showRegistrationPage(Model model) {
+        List<BranchEntity> branches = userRegistrationService.getAllBranchesList();
+        model.addAttribute("branchdata", branches);
+        return "user-registration";
+    }
+
+
 }

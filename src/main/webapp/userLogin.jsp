@@ -346,7 +346,7 @@
                             <a href="resetpassword.jsp">Forgot Password?</a>
                         </div>
                         <div class="register-link">
-                            <a href="user-registration.jsp">Create Account</a>
+                            <a href="userRegistration">Create Account</a>
                         </div>
                     </div>
                 </form>

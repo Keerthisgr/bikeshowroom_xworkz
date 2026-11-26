@@ -472,7 +472,7 @@
                                         <select class="form-control" id="showroom" name="showroom" onChange="fetchBikes()" required>
                                             <option value="" disabled selected>Select showroom</option>
                                             <c:forEach items="${branchdata}" var="branch">
-                                                <option value="${branch}">${branch}</option>
+                                                <option value="${branch.branchName}">${branch.branchName}</option>
                                             </c:forEach>
                                         </select>
                                         <div class="invalid-feedback">Please select a showroom</div>
@@ -796,7 +796,7 @@
         function fetchBikes() {
                  const branchId = document.getElementById('showroom').value;
                  const xhr = new XMLHttpRequest();
-                 xhr.open("GET", "http://localhost:8080/bikeshowroom_xworkz/getbranchandbike?branchName="+branchId);
+                 xhr.open("GET", "${pageContext.request.contextPath}/getbranchandbike?branchName=" + encodeURIComponent(branchId));
                  xhr.onreadystatechange = function () {
                    if (xhr.readyState === 4 && xhr.status === 200) {
                      const bikes = JSON.parse(xhr.responseText);

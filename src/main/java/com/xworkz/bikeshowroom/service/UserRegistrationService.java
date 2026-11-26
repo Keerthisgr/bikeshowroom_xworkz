@@ -28,4 +28,5 @@ public interface UserRegistrationService {
     List<BranchEntity> getAllBranchesList();
 
     List<BikeEntity> getAllBikesList();
+
 }
